@@ -1,0 +1,196 @@
+/* ==================== MOBILE STYLES (Default) ==================== */
+
+/* Top Bar - Logo and About Button (Mobile) */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.top-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 90rem;
+    margin: 0 auto;
+    padding: .5rem 1rem;
+}
+
+/* Category Navigation */
+.category-nav {
+    position: fixed;
+    top: 85px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    z-index: 999;
+    background: rgba(26, 26, 26, 0.651);
+    backdrop-filter: blur(4px) saturate(112%);
+    -webkit-backdrop-filter: blur(4px) saturate(112%);
+    border-radius: var(--spacing-8);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 1;
+}
+
+.category-nav.hidden {
+    transform: translateX(-50%) translateY(-100px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.category-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    padding: .5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-btn:hover {
+    color: var(--accent-color);
+    background: rgba(255, 152, 0, 0.1);
+    border-radius: var(--spacing-8);
+    transform: translateY(-2px);
+}
+
+.category-btn:active {
+    transform: translateY(0);
+}
+
+/* Bottom Navigation Bar (Mobile) */
+.header {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: var(--spacing-8);
+    margin: 0 auto;
+    margin-bottom: var(--spacing-2);
+    z-index: 1000;
+    padding: .10rem 0;
+    max-width: 200px;
+    z-index: 1000;
+    backdrop-filter: blur(4px) saturate(112%);
+    -webkit-backdrop-filter: blur(4px) saturate(112%);
+    background-color: rgba(26, 26, 26, 0.651);
+
+}
+
+/* Logo, Title, and About Button */
+.header-left,
+.header-center,
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-center {
+    flex: 1;
+    justify-content: center;
+}
+
+.page-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.logo-btn {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: var(--spacing-8);
+    width: auto;
+    transition: transform 0.5s ease;
+}
+
+.logo-btn:hover .logo-image {
+    transform: scale(1);
+}
+
+/* About Button */
+.about-btn {
+    background: none;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    font-size: 1.3rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-btn:hover {
+    background: var(--accent-color, #ff9800);
+    color: var(--secondary-bg);
+    transform: rotate(15deg) scale(1.1);
+}
+
+/* Navigation - Centered in bottom bar on mobile */
+.header-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 1rem;
+}
+
+/* Navigation Buttons */
+.nav-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    padding: .5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    color: var(--accent-color);
+    background: rgba(255, 152, 0, 0.1);
+    border-radius: var(--spacing-8);
+    transform: translateY(-2px);
+}
+
+.nav-btn:active {
+    transform: translateY(0);
+}
+
+/* Active state */
+.nav-btn.active {
+    color: var(--accent-color);
+    background: rgba(255, 152, 0, 0.15);
+    border-radius: var(--spacing-8);
+}

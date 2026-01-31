@@ -1,0 +1,145 @@
+/* Design System - CSS Variables */
+:root {
+  /* Colors */
+  --accent-color: #d97706;
+  --background-color: #1f1f1f;
+  --text-color: #e5e5e5;
+  --secondary-bg: #262626;
+
+  /* Fonts */
+  --font-heading: "Nunito Sans", sans-serif;
+  --font-body: "Nunito", sans-serif;
+
+  /* 8-Point Grid System */
+  --spacing-1: 8px;
+  /* 1 unit */
+  --spacing-2: 16px;
+  /* 2 units */
+  --spacing-3: 24px;
+  /* 3 units */
+  --spacing-4: 32px;
+  /* 4 units */
+  --spacing-5: 40px;
+  /* 5 units */
+  --spacing-6: 48px;
+  /* 6 units */
+  --spacing-8: 64px;
+  /* 8 units */
+  --spacing-10: 80px;
+  /* 10 units */
+  --spacing-12: 96px;
+  /* 12 units */
+
+  /* Common spacing aliases */
+  --spacing-xs: var(--spacing-1);
+  /* 8px */
+  --spacing-sm: var(--spacing-2);
+  /* 16px */
+  --spacing-md: var(--spacing-3);
+  /* 24px */
+  --spacing-lg: var(--spacing-4);
+  /* 32px */
+  --spacing-xl: var(--spacing-6);
+  /* 48px */
+  --spacing-2xl: var(--spacing-8);
+  /* 64px */
+}
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Global Styles */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-optical-sizing: auto;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+/* Paragraphs */
+p {
+  font-family: var(--font-body);
+  font-optical-sizing: auto;
+  margin-bottom: 1rem;
+}
+
+/* Links */
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* App Container */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 80px;
+}
+
+
+/* Root Container */
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.main-content {
+  padding: 3.5rem .5rem;
+}
+
+/* Responsive Typography */
+@media (min-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+}
