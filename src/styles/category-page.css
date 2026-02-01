@@ -1,6 +1,11 @@
-/*
+/* Category Page Wrapper Styles */
 
-.now-playing-page goes here and remove the now-playing.css
-+ any other page-level wrapper styles
+.now-playing-page h1 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 700;
+}
 
-*/
+.about-btn {
+    margin: 0 14px;
+}
