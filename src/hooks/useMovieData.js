@@ -20,12 +20,9 @@ export function useMovieData(fetchMoviesFunction) {
 
                 // Fetch both movies and genres in parallel
                 const [moviesData, genresData] = await Promise.all([
-                    fetchMoviesFunction(), // This changes based on which page you're on!
-                    fetchGenres()           // Genres are always the same
+                    fetchMoviesFunction(), 
+                    fetchGenres()           
                 ]);
-
-                console.log("Movies:", moviesData.results);
-                console.log("Genres:", genresData.genres);
 
                 // Save the data to state
                 setMovies(moviesData.results);
@@ -38,13 +35,13 @@ export function useMovieData(fetchMoviesFunction) {
             }
         }
 
-        // Only load data if we have a fetch function
+        // Only load data if have a fetch function
         if (fetchMoviesFunction) {
             loadData();
         }
     }, [fetchMoviesFunction]); // Re-run if the fetch function changes
 
-    // This runs whenever movies or genres change
+    // Runs whenever movies or genres change
     const groupMoviesByGenre = () => {
         const grouped = {};
         const MIN_MOVIES_PER_GENRE = 10; // Only show genres with at least 10 movies

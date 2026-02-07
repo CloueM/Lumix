@@ -16,7 +16,7 @@ export default function Popular() {
     }
 
     return (
-        <div className="popular-page">
+        <div className="category-container">
             {Object.entries(moviesByGenre).map(([genreName, movies]) => (
                 <GenreRow
                     key={genreName}

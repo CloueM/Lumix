@@ -16,7 +16,7 @@ export default function NowPlaying() {
     }
 
     return (
-        <div className="now-playing-page">
+        <div className="category-container">
             {Object.entries(moviesByGenre).map(([genreName, movies]) => (
                 <GenreRow
                     key={genreName}

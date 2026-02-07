@@ -16,7 +16,7 @@ export default function Upcoming() {
     }
 
     return (
-        <div className="upcoming-page">
+        <div className="category-container">
             {Object.entries(moviesByGenre).map(([genreName, movies]) => (
                 <GenreRow
                     key={genreName}

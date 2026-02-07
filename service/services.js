@@ -17,7 +17,7 @@ export const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
 // API Constants
 // ----------------------------------------------------------------------------
 const LANGUAGE = "en_US";
-const PAGES_TO_FETCH = 5; // Number of pages to fetch for more movies per genre
+const PAGES_TO_FETCH = 5;
 
 // ----------------------------------------------------------------------------
 // API Endpoints
@@ -118,6 +118,22 @@ export async function fetchUpcomingMovies() {
         return await fetchMultiplePages(baseUrl);
     } catch (error) {
         console.error("Error fetching upcoming movies:", error);
+        throw error;
+    }
+}
+
+export async function fetchTrendingToday() {
+    try {
+        const url = `${BASE_URL}/trending/all/day?api_key=${API_KEY}&language=${LANGUAGE}`;
+        const res = await fetch(url);
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        console.log(data)
+        return data;
+    } catch (error) {
+        console.error("Error fetching trending today:", error);
         throw error;
     }
 }

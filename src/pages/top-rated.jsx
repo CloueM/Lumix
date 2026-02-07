@@ -16,7 +16,7 @@ export default function TopRated() {
     }
 
     return (
-        <div className="top-rated-page">
+        <div className="category-container">
             {Object.entries(moviesByGenre).map(([genreName, movies]) => (
                 <GenreRow
                     key={genreName}
