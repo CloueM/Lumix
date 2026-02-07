@@ -9,6 +9,7 @@ import Upcoming from './pages/upcoming'
 import Search from './pages/search'
 import UserBookmark from './pages/user-bookmark'
 import AboutLumix from './pages/about-lumix'
+import TopRated from './pages/top-rated'
 
 
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/popular" element={<Popular />} />
             <Route path="/now-playing" element={<NowPlaying />} />
+            <Route path="/top-rated" element={<TopRated />} />
             <Route path="/upcoming" element={<Upcoming />} />
             <Route path="/search" element={<Search />} />
             <Route path="/bookmark" element={<UserBookmark />} />
