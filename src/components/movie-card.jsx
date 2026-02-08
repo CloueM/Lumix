@@ -2,7 +2,7 @@ import { FaStar } from "react-icons/fa";
 import "../styles/movie-card.css";
 
 export default function MovieCard({ movie, IMAGE_BASE_URL }) {
-    const truncateOverview = (text, maxLength = 200) => {
+    const truncateOverview = (text, maxLength = 100) => {
         if (!text) return 'No overview available.';
         return text.length > maxLength
             ? text.substring(0, maxLength) + '...'
