@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FaStar, FaPlay, FaBookmark } from "react-icons/fa";
 import "../styles/trending-today.css";
 
 export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
@@ -83,6 +84,18 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
         setCurrentIndex(index);
     }
 
+    // Handle view button click
+    const handleView = () => {
+        // TODO: Add view details functionality
+        console.log('View clicked for:', title);
+    };
+
+    // Handle bookmark button click
+    const handleBookmark = () => {
+        // TODO: Add bookmark functionality
+        console.log('Bookmark clicked for:', title);
+    };
+
     return (
         <div className="trending-hero">
             <div 
@@ -105,6 +118,24 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
                 </div>
                 
                 <p className="hero-overview">{overview}</p>
+
+                <div className="hero-buttons">
+                    <button 
+                        className="hero-view-button"
+                        onClick={handleView}
+                        aria-label="View movie details"
+                    >
+                        <FaPlay className="button-icon" />
+                        View
+                    </button>
+                    <button 
+                        className="hero-bookmark-button"
+                        onClick={handleBookmark}
+                        aria-label="Bookmark movie"
+                    >
+                        <FaBookmark className="button-icon" />
+                    </button>
+                </div>
 
                 <div className="hero-indicators">
                     {movies.map((movie, index) => {

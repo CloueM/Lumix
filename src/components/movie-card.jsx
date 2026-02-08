@@ -1,4 +1,4 @@
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaBookmark, FaPlay } from "react-icons/fa";
 import "../styles/movie-card.css";
 
 export default function MovieCard({ movie, IMAGE_BASE_URL }) {
@@ -16,6 +16,18 @@ export default function MovieCard({ movie, IMAGE_BASE_URL }) {
             month: 'short',
             day: 'numeric'
         });
+    };
+
+    const handleBookmark = (e) => {
+        e.stopPropagation();
+        // TODO: Add bookmark functionality
+        console.log('Bookmark clicked for:', movie.title);
+    };
+
+    const handleView = (e) => {
+        e.stopPropagation();
+        // TODO: Add view details functionality
+        console.log('View clicked for:', movie.title);
     };
 
     return (
@@ -40,6 +52,23 @@ export default function MovieCard({ movie, IMAGE_BASE_URL }) {
                             <p className="overlay-overview">
                                 {truncateOverview(movie.overview)}
                             </p>
+                        </div>
+                        <div className="overlay-buttons">
+                            <button 
+                                className="view-button"
+                                onClick={handleView}
+                                aria-label="View movie details"
+                            >
+                                <FaPlay className="button-icon" />
+                                View
+                            </button>
+                            <button 
+                                className="bookmark-button"
+                                onClick={handleBookmark}
+                                aria-label="Bookmark movie"
+                            >
+                                <FaBookmark className="button-icon" />
+                            </button>
                         </div>
                     </div>
                 </div>

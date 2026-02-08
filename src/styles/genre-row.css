@@ -100,8 +100,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     scroll-behavior: smooth;
-    padding-left: .5rem;
-    padding-right: .5rem;
+    padding: 0 1rem;
     scrollbar-width: none;
 }
 
