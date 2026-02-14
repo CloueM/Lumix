@@ -121,6 +121,15 @@
     color: #fff;
 }
 
+.card-character {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0.25rem 0 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* Responsive Design */
 @media (min-width: 768px) {
     .movie-card {

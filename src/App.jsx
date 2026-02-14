@@ -10,6 +10,7 @@ import Search from './pages/search'
 import UserBookmark from './pages/user-bookmark'
 import AboutLumix from './pages/about-lumix'
 import TopRated from './pages/categories/top-rated'
+import View from './pages/view'
 
 
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/bookmark" element={<UserBookmark />} />
             <Route path="/about" element={<AboutLumix />} />
+            <Route path="/movie/:id" element={<View />} />
           </Routes>
         </main>
         <Footer />

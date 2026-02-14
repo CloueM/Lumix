@@ -1,8 +1,11 @@
 import { FaStar, FaBookmark, FaPlay } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "../styles/components/movie-card.css";
 import "../styles/components/buttons.css";
 
 export default function MovieCard({ movie, IMAGE_BASE_URL }) {
+    const navigate = useNavigate();
+    
     const truncateOverview = (text, maxLength = 100) => {
         if (!text) return 'No overview available.';
         return text.length > maxLength
@@ -27,8 +30,8 @@ export default function MovieCard({ movie, IMAGE_BASE_URL }) {
 
     const handleView = (e) => {
         e.stopPropagation();
-        // TODO: Add view details functionality
-        console.log('View clicked for:', movie.title);
+        // Navigate to movie details page
+        navigate(`/movie/${movie.id}`);
     };
 
     return (

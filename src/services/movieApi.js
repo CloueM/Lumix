@@ -77,3 +77,51 @@ export async function fetchTrendingToday() {
         throw error;
     }
 }
+
+// Get detailed info about a specific movie
+export async function fetchMovieDetails(movieId) {
+    try {
+        const url = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=${LANGUAGE}`;
+        const res = await fetch(url);
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error("Error fetching movie details:", error);
+        throw error;
+    }
+}
+
+// Get trailers and videos for a movie
+export async function fetchMovieVideos(movieId) {
+    try {
+        const url = `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}&language=${LANGUAGE}`;
+        const res = await fetch(url);
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error("Error fetching movie videos:", error);
+        throw error;
+    }
+}
+
+// Get actors and cast for a movie
+export async function fetchMovieCast(movieId) {
+    try {
+        const url = `${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}&language=${LANGUAGE}`;
+        const res = await fetch(url);
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error("Error fetching movie cast:", error);
+        throw error;
+    }
+}

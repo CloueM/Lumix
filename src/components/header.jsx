@@ -1,5 +1,5 @@
 import '../styles/components/header.css';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AiOutlineHome, AiOutlineStar } from 'react-icons/ai';
 import { MdMovie, MdBookmark } from 'react-icons/md';
@@ -7,15 +7,43 @@ import { BiCalendar, BiSearch, BiInfoCircle } from 'react-icons/bi';
 import { RiMovie2Line } from 'react-icons/ri';
 import { HiMenu } from 'react-icons/hi';
 import logo from '../assets/lumix-logo.svg';
+import { fetchMovieDetails } from '../services/movieApi';
 
 export default function Navbar() {
     const navigate = useNavigate();
     const location = useLocation();
     const [showCategoryNav, setShowCategoryNav] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const [movieTitle, setMovieTitle] = useState('');
+
+    // Check if we're on a movie details page and fetch the movie title
+    useEffect(() => {
+        const fetchMovieTitle = async () => {
+            const movieIdMatch = location.pathname.match(/^\/movie\/(\d+)$/);
+            if (movieIdMatch) {
+                const movieId = movieIdMatch[1];
+                try {
+                    const movieData = await fetchMovieDetails(movieId);
+                    setMovieTitle(movieData.title);
+                } catch (error) {
+                    console.error('Error fetching movie title:', error);
+                    setMovieTitle('Movie Details');
+                }
+            } else {
+                setMovieTitle('');
+            }
+        };
+
+        fetchMovieTitle();
+    }, [location.pathname]);
 
     // Get page title based on current route
     const getPageTitle = () => {
+        // If we're on a movie details page, show the movie title
+        if (movieTitle) {
+            return movieTitle;
+        }
+
         switch (location.pathname) {
             case '/':
                 return 'Home';
