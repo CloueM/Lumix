@@ -1,5 +1,6 @@
 import { FaStar, FaBookmark, FaPlay } from "react-icons/fa";
 import "../styles/movie-card.css";
+import "../styles/buttons.css";
 
 export default function MovieCard({ movie, IMAGE_BASE_URL }) {
     const truncateOverview = (text, maxLength = 100) => {
@@ -55,7 +56,7 @@ export default function MovieCard({ movie, IMAGE_BASE_URL }) {
                         </div>
                         <div className="overlay-buttons">
                             <button 
-                                className="view-button"
+                                className="view-btn"
                                 onClick={handleView}
                                 aria-label="View movie details"
                             >
@@ -63,7 +64,7 @@ export default function MovieCard({ movie, IMAGE_BASE_URL }) {
                                 View
                             </button>
                             <button 
-                                className="bookmark-button"
+                                className="bookmark-btn"
                                 onClick={handleBookmark}
                                 aria-label="Bookmark movie"
                             >

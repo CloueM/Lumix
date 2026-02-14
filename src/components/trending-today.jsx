@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaStar, FaPlay, FaBookmark } from "react-icons/fa";
 import "../styles/trending-today.css";
+import "../styles/buttons.css";
 
 export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
     // Keep track of which movie we're showing
@@ -121,7 +122,7 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
 
                 <div className="hero-buttons">
                     <button 
-                        className="hero-view-button"
+                        className="view-btn"
                         onClick={handleView}
                         aria-label="View movie details"
                     >
@@ -129,7 +130,7 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
                         View
                     </button>
                     <button 
-                        className="hero-bookmark-button"
+                        className="bookmark-btn"
                         onClick={handleBookmark}
                         aria-label="Bookmark movie"
                     >
