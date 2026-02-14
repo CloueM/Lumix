@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaStar, FaPlay, FaBookmark } from "react-icons/fa";
-import "../styles/trending-today.css";
-import "../styles/buttons.css";
+import "../styles/components/trending-today.css";
+import "../styles/components/buttons.css";
 
 export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
     // Keep track of which movie we're showing

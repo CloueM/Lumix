@@ -1,4 +1,4 @@
-import '../styles/header.css';
+import '../styles/components/header.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AiOutlineHome, AiOutlineStar } from 'react-icons/ai';

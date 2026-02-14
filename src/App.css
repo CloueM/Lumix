@@ -47,11 +47,22 @@
 
 /* ==================== UTILITY CLASSES ==================== */
 
-/* Glass Morphism Effect - Reusable */
+/* Glass Morphism Effect */
 .glass {
   background: rgba(26, 26, 26, 0.651);
   backdrop-filter: blur(4px) saturate(112%);
   -webkit-backdrop-filter: blur(4px) saturate(112%);
+}
+
+/* Layout Container */
+.category-container {
+  padding-top: 9rem;
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.category-container--no-top-padding {
+  padding-top: 0;
 }
 
 /* Global Reset */

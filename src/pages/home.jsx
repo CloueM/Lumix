@@ -3,7 +3,6 @@ import { useHomeData } from "../hooks/useHomeData";
 import Loading from "../components/Loading";
 import GenreRow from "../components/genre-row";
 import TrendingToday from "../components/trending-today";
-import "../styles/category-page.css";
 
 export default function Home() {
     const { categorizedMovies, loading, error } = useHomeData();

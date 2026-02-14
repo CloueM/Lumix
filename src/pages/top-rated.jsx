@@ -2,7 +2,6 @@ import { fetchTopRatedMovies, IMAGE_BASE_URL } from "../../service/services"
 import { useMovieData } from "../hooks/useMovieData"
 import Loading from "../components/Loading"
 import GenreRow from "../components/genre-row"
-import "../styles/category-page.css"
 
 export default function TopRated() {
     const { moviesByGenre, loading, error } = useMovieData(fetchTopRatedMovies);

@@ -1,4 +1,4 @@
-import "../styles/footer.css"
+import "../styles/components/footer.css"
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { BiGlobe } from 'react-icons/bi';

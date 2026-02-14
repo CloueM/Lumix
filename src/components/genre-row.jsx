@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import MovieCard from "./movie-card";
-import "../styles/genre-row.css";
+import "../styles/components/genre-row.css";
 
 export default function GenreRow({ genreName, movies, IMAGE_BASE_URL }) {
     const scrollRef = useRef(null);

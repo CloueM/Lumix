@@ -1,6 +1,6 @@
 import { FaStar, FaBookmark, FaPlay } from "react-icons/fa";
-import "../styles/movie-card.css";
-import "../styles/buttons.css";
+import "../styles/components/movie-card.css";
+import "../styles/components/buttons.css";
 
 export default function MovieCard({ movie, IMAGE_BASE_URL }) {
     const truncateOverview = (text, maxLength = 100) => {
