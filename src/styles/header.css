@@ -86,9 +86,9 @@
     padding: .10rem 0;
     max-width: 200px;
     z-index: 1000;
+    background: rgba(26, 26, 26, 0.651);
     backdrop-filter: blur(4px) saturate(112%);
     -webkit-backdrop-filter: blur(4px) saturate(112%);
-    background-color: rgba(26, 26, 26, 0.651);
 
 }
 

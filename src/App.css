@@ -45,6 +45,15 @@
   /* 64px */
 }
 
+/* ==================== UTILITY CLASSES ==================== */
+
+/* Glass Morphism Effect - Reusable */
+.glass {
+  background: rgba(26, 26, 26, 0.651);
+  backdrop-filter: blur(4px) saturate(112%);
+  -webkit-backdrop-filter: blur(4px) saturate(112%);
+}
+
 /* Global Reset */
 * {
   box-sizing: border-box;

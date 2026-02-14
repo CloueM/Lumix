@@ -64,7 +64,7 @@ export default function MovieCard({ movie, IMAGE_BASE_URL }) {
                                 View
                             </button>
                             <button 
-                                className="bookmark-btn"
+                                className="bookmark-btn glass"
                                 onClick={handleBookmark}
                                 aria-label="Bookmark movie"
                             >

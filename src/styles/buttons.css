@@ -37,9 +37,6 @@
     justify-content: center;
     gap: 0.5rem;
     padding: 0.75rem 1rem;
-    background: rgba(26, 26, 26, 0.651);
-    backdrop-filter: blur(4px) saturate(112%);
-    -webkit-backdrop-filter: blur(4px) saturate(112%);
     border: none;
     border-radius: 50%;
     color: var(--text-color);
@@ -50,7 +47,7 @@
 }
 
 .bookmark-btn:hover {
-    background: rgba(26, 26, 26, 0.8);
+    opacity: 0.8;
     transform: translateY(-2px);
 }
 

@@ -107,7 +107,7 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
             </div>
             
             <div className="hero-content">
-                <div className="hero-badge">Trending Today</div>
+                <div className="hero-badge glass">Trending Today</div>
                 <h1 className="hero-title">{title}</h1>
                 
                 <div className="hero-meta">
@@ -130,7 +130,7 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
                         View
                     </button>
                     <button 
-                        className="bookmark-btn"
+                        className="bookmark-btn glass"
                         onClick={handleBookmark}
                         aria-label="Bookmark movie"
                     >
