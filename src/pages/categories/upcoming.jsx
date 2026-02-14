@@ -1,7 +1,7 @@
-import { fetchUpcomingMovies, IMAGE_BASE_URL } from "../../service/services"
-import { useMovieData } from "../hooks/useMovieData"
-import Loading from "../components/Loading"
-import GenreRow from "../components/genre-row"
+import { fetchUpcomingMovies, IMAGE_BASE_URL } from "../../../service/services"
+import { useMovieData } from "../../hooks/useMovieData"
+import Loading from "../../components/Loading"
+import GenreRow from "../../components/genre-row"
 
 export default function Upcoming() {
     const { moviesByGenre, loading, error } = useMovieData(fetchUpcomingMovies);

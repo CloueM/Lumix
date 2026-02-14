@@ -1,17 +1,17 @@
-import { fetchNowPlayingMovies, IMAGE_BASE_URL } from "../../service/services"
-import { useMovieData } from "../hooks/useMovieData"
-import Loading from "../components/Loading"
-import GenreRow from "../components/genre-row"
+import { fetchTopRatedMovies, IMAGE_BASE_URL } from "../../../service/services"
+import { useMovieData } from "../../hooks/useMovieData"
+import Loading from "../../components/Loading"
+import GenreRow from "../../components/genre-row"
 
-export default function NowPlaying() {
-    const { moviesByGenre, loading, error } = useMovieData(fetchNowPlayingMovies);
+export default function TopRated() {
+    const { moviesByGenre, loading, error } = useMovieData(fetchTopRatedMovies);
 
     if (loading) {
         return <Loading />;
     }
 
     if (error) {
-        return <div style={{ padding: '20px', color: 'red' }}><h1>Now Playing</h1><p>Error: {error}</p></div>;
+        return <div style={{ padding: '20px', color: 'red' }}><h1>Top Rated</h1><p>Error: {error}</p></div>;
     }
 
     return (

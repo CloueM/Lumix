@@ -3,13 +3,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/header'
 import Footer from './components/footer'
 import Home from './pages/home'
-import Popular from './pages/popular'
-import NowPlaying from './pages/now-playing'
-import Upcoming from './pages/upcoming'
+import Popular from './pages/categories/popular'
+import NowPlaying from './pages/categories/now-playing'
+import Upcoming from './pages/categories/upcoming'
 import Search from './pages/search'
 import UserBookmark from './pages/user-bookmark'
 import AboutLumix from './pages/about-lumix'
-import TopRated from './pages/top-rated'
+import TopRated from './pages/categories/top-rated'
 
 
 

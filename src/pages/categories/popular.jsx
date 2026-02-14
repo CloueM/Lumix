@@ -1,17 +1,17 @@
-import { fetchTopRatedMovies, IMAGE_BASE_URL } from "../../service/services"
-import { useMovieData } from "../hooks/useMovieData"
-import Loading from "../components/Loading"
-import GenreRow from "../components/genre-row"
+import { fetchPopularMovies, IMAGE_BASE_URL } from "../../../service/services"
+import { useMovieData } from "../../hooks/useMovieData"
+import Loading from "../../components/Loading"
+import GenreRow from "../../components/genre-row"
 
-export default function TopRated() {
-    const { moviesByGenre, loading, error } = useMovieData(fetchTopRatedMovies);
+export default function Popular() {
+    const { moviesByGenre, loading, error } = useMovieData(fetchPopularMovies);
 
     if (loading) {
         return <Loading />;
     }
 
     if (error) {
-        return <div style={{ padding: '20px', color: 'red' }}><h1>Top Rated</h1><p>Error: {error}</p></div>;
+        return <div style={{ padding: '20px', color: 'red' }}><h1>Popular</h1><p>Error: {error}</p></div>;
     }
 
     return (
