@@ -5,7 +5,7 @@ import {
     fetchTopRatedMovies, 
     fetchUpcomingMovies,
     fetchTrendingToday
-} from "../../service/services";
+} from "../services/movieApi.js";
 
 export function useHomeData() {
     const [categorizedMovies, setCategorizedMovies] = useState({});

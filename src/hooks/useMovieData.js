@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchGenres } from "../../service/services";
+import { fetchGenres } from "../services/movieApi.js";
 
 // fetchMoviesFunctions can be any of the following:
 // fetchNowPlayingMovies

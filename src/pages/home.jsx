@@ -1,4 +1,4 @@
-import { IMAGE_BASE_URL } from "../../service/services";
+import { IMAGE_BASE_URL } from "../services/movieApi.js";
 import { useHomeData } from "../hooks/useHomeData";
 import Loading from "../components/Loading";
 import GenreRow from "../components/genre-row";

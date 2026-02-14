@@ -1,4 +1,4 @@
-import { fetchTopRatedMovies, IMAGE_BASE_URL } from "../../../service/services"
+import { fetchTopRatedMovies, IMAGE_BASE_URL } from "../../services/movieApi.js"
 import { useMovieData } from "../../hooks/useMovieData"
 import Loading from "../../components/Loading"
 import GenreRow from "../../components/genre-row"
