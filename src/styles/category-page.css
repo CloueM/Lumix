@@ -1,6 +1,11 @@
 /* Category Page Wrapper Styles */
 .category-container{
-    padding-top: 10rem;
+    padding-top: 9rem;
     max-width: 90rem;
     margin: 0 auto;
+}
+
+/* Modifier for home page where TrendingToday provides spacing */
+.category-container--no-top-padding {
+    padding-top: 0;
 }

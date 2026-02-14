@@ -37,7 +37,7 @@ export default function Home() {
                     />
                 )}
             </div>
-            <div className="category-container">
+            <div className="category-container category-container--no-top-padding">
             {otherCategories.map(([categoryName, movies]) => (
                 <GenreRow
                     key={categoryName}
