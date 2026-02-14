@@ -87,16 +87,32 @@ export default function Navbar() {
             </div>
             {/* Category Navigation - Centered at bottom */}
             <nav className={`category-nav ${!showCategoryNav ? 'hidden' : ''}`}>
-                <button className="category-btn" onClick={() => navigate('/now-playing')} title="Now Playing">
+                <button 
+                    className={`category-btn ${location.pathname === '/now-playing' ? 'active' : ''}`}
+                    onClick={() => navigate('/now-playing')} 
+                    title="Now Playing"
+                >
                     <RiMovie2Line />
                 </button>
-                <button className="category-btn" onClick={() => navigate('/top-rated')} title="Top Rated">
+                <button 
+                    className={`category-btn ${location.pathname === '/top-rated' ? 'active' : ''}`}
+                    onClick={() => navigate('/top-rated')} 
+                    title="Top Rated"
+                >
                     <AiOutlineStar />
                 </button>
-                <button className="category-btn" onClick={() => navigate('/popular')} title="Popular">
+                <button 
+                    className={`category-btn ${location.pathname === '/popular' ? 'active' : ''}`}
+                    onClick={() => navigate('/popular')} 
+                    title="Popular"
+                >
                     <MdMovie />
                 </button>
-                <button className="category-btn" onClick={() => navigate('/upcoming')} title="Upcoming">
+                <button 
+                    className={`category-btn ${location.pathname === '/upcoming' ? 'active' : ''}`}
+                    onClick={() => navigate('/upcoming')} 
+                    title="Upcoming"
+                >
                     <BiCalendar />
                 </button>
             </nav>
@@ -104,13 +120,25 @@ export default function Navbar() {
             {/* Bottom Bar - Main Navigation */}
             <header className="header">
                 <nav className="header-nav">
-                    <button className="nav-btn" onClick={() => navigate('/')} title="Home">
+                    <button 
+                        className={`nav-btn ${location.pathname === '/' ? 'active' : ''}`}
+                        onClick={() => navigate('/')} 
+                        title="Home"
+                    >
                         <AiOutlineHome />
                     </button>
-                    <button className="nav-btn" onClick={() => navigate('/search')} title="Search">
+                    <button 
+                        className={`nav-btn ${location.pathname === '/search' ? 'active' : ''}`}
+                        onClick={() => navigate('/search')} 
+                        title="Search"
+                    >
                         <BiSearch />
                     </button>
-                    <button className="nav-btn" onClick={() => navigate('/bookmark')} title="Bookmark">
+                    <button 
+                        className={`nav-btn ${location.pathname === '/bookmark' ? 'active' : ''}`}
+                        onClick={() => navigate('/bookmark')} 
+                        title="Bookmark"
+                    >
                         <MdBookmark />
                     </button>
                 </nav>

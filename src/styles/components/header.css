@@ -73,6 +73,12 @@
     transform: translateY(0);
 }
 
+.category-btn.active {
+    color: var(--accent-color);
+    background: rgba(255, 152, 0, 0.15);
+    border-radius: var(--spacing-8);
+}
+
 /* Bottom Navigation Bar (Mobile) */
 .header {
     position: fixed;
