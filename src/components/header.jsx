@@ -1,170 +1,141 @@
-import '../styles/components/header.css';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { AiOutlineHome, AiOutlineStar } from 'react-icons/ai';
-import { MdMovie, MdBookmark } from 'react-icons/md';
-import { BiCalendar, BiSearch, BiInfoCircle } from 'react-icons/bi';
-import { RiMovie2Line } from 'react-icons/ri';
-import { HiMenu } from 'react-icons/hi';
-import logo from '../assets/lumix-logo.svg';
-import { fetchMovieDetails } from '../services/movieApi';
+import "../styles/header.css";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { AiOutlineHome, AiOutlineStar } from "react-icons/ai";
+import { MdMovie, MdBookmark } from "react-icons/md";
+import { BiCalendar, BiSearch, BiInfoCircle } from "react-icons/bi";
+import { RiMovie2Line } from "react-icons/ri";
+import logo from "../assets/lumix-logo.svg";
+import { fetchMovieDetails } from "../services/movieApi";
 
 export default function Navbar() {
     const navigate = useNavigate();
     const location = useLocation();
     const [showCategoryNav, setShowCategoryNav] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
-    const [movieTitle, setMovieTitle] = useState('');
+    const [movieTitle, setMovieTitle] = useState("");
 
-    // Check if we're on a movie details page and fetch the movie title
+    // If on a movie page, fetch and show the movie title
     useEffect(() => {
-        const fetchMovieTitle = async () => {
-            const movieIdMatch = location.pathname.match(/^\/movie\/(\d+)$/);
-            if (movieIdMatch) {
-                const movieId = movieIdMatch[1];
-                try {
-                    const movieData = await fetchMovieDetails(movieId);
-                    setMovieTitle(movieData.title);
-                } catch (error) {
-                    console.error('Error fetching movie title:', error);
-                    setMovieTitle('Movie Details');
-                }
-            } else {
-                setMovieTitle('');
-            }
-        };
-
-        fetchMovieTitle();
+        const movieIdMatch = location.pathname.match(/^\/movie\/(\d+)$/);
+        if (movieIdMatch) {
+            const movieId = movieIdMatch[1];
+            fetchMovieDetails(movieId)
+                .then(data => setMovieTitle(data.title))
+                .catch(() => setMovieTitle("Movie Details"));
+        } else {
+            setMovieTitle("");
+        }
     }, [location.pathname]);
 
-    // Get page title based on current route
-    const getPageTitle = () => {
-        // If we're on a movie details page, show the movie title
-        if (movieTitle) {
-            return movieTitle;
-        }
-
-        switch (location.pathname) {
-            case '/':
-                return 'Home';
-            case '/now-playing':
-                return 'Now Playing';
-            case '/top-rated':
-                return 'Top Rated';
-            case '/popular':
-                return 'Popular';
-            case '/upcoming':
-                return 'Upcoming';
-            case '/search':
-                return 'Search';
-            case '/bookmark':
-                return 'Bookmark';
-            case '/about':
-                return 'About';
-            default:
-                return 'Movie App';
-        }
-    };
-
+    // Hide category nav when scrolling down, show when scrolling up
     useEffect(() => {
-        const handleScroll = () => {
+        function handleScroll() {
             const currentScrollY = window.scrollY;
-
             if (currentScrollY > lastScrollY && currentScrollY > 50) {
-                // Scrolling down
                 setShowCategoryNav(false);
             } else {
-                // Scrolling up
                 setShowCategoryNav(true);
             }
-
             setLastScrollY(currentScrollY);
-        };
+        }
 
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
     }, [lastScrollY]);
+
+    function getPageTitle() {
+        if (movieTitle) return movieTitle;
+
+        // Map each route path to a page title
+        const titles = {
+            "/": "Home",
+            "/now-playing": "Now Playing",
+            "/top-rated": "Top Rated",
+            "/popular": "Popular",
+            "/upcoming": "Upcoming",
+            "/search": "Search",
+            "/bookmark": "Bookmark",
+            "/about": "About"
+        };
+
+        return titles[location.pathname] || "Movie App";
+    }
 
     return (
         <>
-            {/* Top Bar - Logo, Title, and About */}
             <div className="top-bar">
                 <div className="top-bar-container">
                     <div className="header-left">
-                        <a className="logo-btn" onClick={() => navigate('/')}>
+                        <a className="logo-btn" onClick={() => navigate("/")}>
                             <img src={logo} alt="Lumix" className="logo-image" />
                         </a>
                     </div>
 
-                    {/* Page Title */}
                     <div className="header-center">
-                        <h1 className="page-title">{getPageTitle()}</h1>
+                        {!location.pathname.startsWith("/movie/") && (
+                            <h1 className="page-title">{getPageTitle()}</h1>
+                        )}
                     </div>
 
-                    {/* About Button */}
                     <div className="header-right">
-                        <button className="about-btn" onClick={() => navigate('/about')} title="About">
+                        <button className="about-btn" onClick={() => navigate("/about")} title="About">
                             <BiInfoCircle />
                         </button>
                     </div>
                 </div>
-
             </div>
-            {/* Category Navigation - Centered at bottom */}
-            <nav className={`category-nav ${!showCategoryNav ? 'hidden' : ''}`}>
-                <button 
-                    className={`category-btn ${location.pathname === '/now-playing' ? 'active' : ''}`}
-                    onClick={() => navigate('/now-playing')} 
+
+            <nav className={`category-nav glass ${!showCategoryNav ? "hidden" : ""}`}>
+                <button
+                    className={`category-btn ${location.pathname === "/now-playing" ? "active" : ""}`}
+                    onClick={() => navigate("/now-playing")}
                     title="Now Playing"
                 >
                     <RiMovie2Line />
                 </button>
-                <button 
-                    className={`category-btn ${location.pathname === '/top-rated' ? 'active' : ''}`}
-                    onClick={() => navigate('/top-rated')} 
+                <button
+                    className={`category-btn ${location.pathname === "/top-rated" ? "active" : ""}`}
+                    onClick={() => navigate("/top-rated")}
                     title="Top Rated"
                 >
                     <AiOutlineStar />
                 </button>
-                <button 
-                    className={`category-btn ${location.pathname === '/popular' ? 'active' : ''}`}
-                    onClick={() => navigate('/popular')} 
+                <button
+                    className={`category-btn ${location.pathname === "/popular" ? "active" : ""}`}
+                    onClick={() => navigate("/popular")}
                     title="Popular"
                 >
                     <MdMovie />
                 </button>
-                <button 
-                    className={`category-btn ${location.pathname === '/upcoming' ? 'active' : ''}`}
-                    onClick={() => navigate('/upcoming')} 
+                <button
+                    className={`category-btn ${location.pathname === "/upcoming" ? "active" : ""}`}
+                    onClick={() => navigate("/upcoming")}
                     title="Upcoming"
                 >
                     <BiCalendar />
                 </button>
             </nav>
 
-            {/* Bottom Bar - Main Navigation */}
             <header className="header">
-                <nav className="header-nav">
-                    <button 
-                        className={`nav-btn ${location.pathname === '/' ? 'active' : ''}`}
-                        onClick={() => navigate('/')} 
+                <nav className="header-nav glass">
+                    <button
+                        className={`nav-btn ${location.pathname === "/" ? "active" : ""}`}
+                        onClick={() => navigate("/")}
                         title="Home"
                     >
                         <AiOutlineHome />
                     </button>
-                    <button 
-                        className={`nav-btn ${location.pathname === '/search' ? 'active' : ''}`}
-                        onClick={() => navigate('/search')} 
+                    <button
+                        className={`nav-btn ${location.pathname === "/search" ? "active" : ""}`}
+                        onClick={() => navigate("/search")}
                         title="Search"
                     >
                         <BiSearch />
                     </button>
-                    <button 
-                        className={`nav-btn ${location.pathname === '/bookmark' ? 'active' : ''}`}
-                        onClick={() => navigate('/bookmark')} 
+                    <button
+                        className={`nav-btn ${location.pathname === "/bookmark" ? "active" : ""}`}
+                        onClick={() => navigate("/bookmark")}
                         title="Bookmark"
                     >
                         <MdBookmark />
@@ -174,4 +145,3 @@ export default function Navbar() {
         </>
     );
 }
-

@@ -1,21 +1,18 @@
-/* ==================== FOOTER STYLES ==================== */
-
 .footer {
-    background-color: #2a2a2a;
-    color: #fff;
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
     padding: 3rem 2rem;
 }
 
 .footer-container {
-    max-width: 90rem;
+    max-width: var(--max-width);
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
-/* Left Section */
+/* Left side - social links */
 .footer-left {
     display: flex;
     gap: 1.5rem;
@@ -26,14 +23,14 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    border-left: 4px solid var(--accent-color, #ff9800);
+    border-left: 4px solid var(--accent-color);
     padding-left: 1.5rem;
 }
 
 .footer-title {
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: #b0b0b0;
+    font-size: var(--text-xl);
+    font-weight: var(--weight-normal);
+    color: var(--text-muted);
     letter-spacing: 2px;
     margin: 0;
 }
@@ -48,34 +45,33 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    color: #b0b0b0;
+    color: var(--text-muted);
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: var(--text-base);
     letter-spacing: 1px;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 .footer-link:hover {
-    color: var(--accent-color, #ff9800);
+    color: var(--accent-color);
     transform: translateX(5px);
 }
 
 .footer-icon {
-    font-size: 1.8rem;
-    color: var(--accent-color, #ff9800);
+    font-size: var(--text-2xl);
+    color: var(--accent-color);
 }
 
-/* Right Section */
+/* Right side - logo and copyright */
 .footer-right {
     display: flex;
     flex-direction: column;
     align-items: left;
-
 }
 
 .footer-logo {
-    width: 80px;
-    height: 80px;
+    width: var(--spacing-10);
+    height: var(--spacing-10);
     object-fit: contain;
 }
 
@@ -87,30 +83,29 @@
 }
 
 .horizontal-line {
-    width: 10rem;
-    height: 3px;
+    width: var(--horizontal-line-width);
+    height: var(--horizontal-line-height);
     background-color: var(--accent-color);
     margin: 0 auto;
 }
 
 .copyright-text {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: var(--text-base);
+    font-weight: var(--weight-semi);
     letter-spacing: 1px;
-    color: #fff;
+    color: var(--text-color);
     margin: 0;
 }
 
 .rights-text {
-    font-size: 0.85rem;
-    font-weight: 400;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-normal);
     letter-spacing: 1px;
-    color: #b0b0b0;
+    color: var(--text-muted);
     margin: 0;
 }
 
-/* ==================== RESPONSIVE STYLES ==================== */
-
+/* Responsive */
 @media (max-width: 768px) {
     .footer {
         padding: 2rem 1rem;
@@ -136,11 +131,11 @@
     }
 
     .footer-title {
-        font-size: 1.2rem;
+        font-size: var(--text-lg);
         text-align: center;
     }
 
-    /* Display icons horizontally and hide text labels */
+    /* Show icons only on small screens */
     .footer-links {
         flex-direction: row;
         justify-content: center;
@@ -152,11 +147,11 @@
     }
 
     .footer-link {
-        font-size: 0.9rem;
+        font-size: var(--text-sm);
     }
 
     .footer-icon {
-        font-size: 2rem;
+        font-size: var(--text-2xl);
     }
 
     .footer-right {
@@ -165,12 +160,12 @@
     }
 
     .footer-logo {
-        width: 60px;
-        height: 60px;
+        width: var(--spacing-8);
+        height: var(--spacing-8);
     }
 
     .horizontal-line {
-        width: 100px;
+        width: 6rem;
     }
 
     .footer-copyright {
@@ -184,7 +179,7 @@
     }
 
     .footer-title {
-        font-size: 1rem;
+        font-size: var(--text-base);
     }
 
     .footer-links {
@@ -192,20 +187,19 @@
     }
 
     .footer-icon {
-        font-size: 1.8rem;
+        font-size: var(--text-2xl);
     }
 
     .footer-logo {
-        width: 50px;
-        height: 50px;
+        width: var(--spacing-6);
+        height: var(--spacing-6);
     }
 
     .copyright-text {
-        font-size: 0.9rem;
-
+        font-size: var(--text-sm);
     }
 
     .rights-text {
-        font-size: 0.75rem;
+        font-size: var(--text-xs);
     }
 }

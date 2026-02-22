@@ -1,8 +1,6 @@
-import "../styles/components/movie-cast.css";
+import "../styles/movie-cast.css";
 
 export default function ActorCard({ actor, IMAGE_BASE_URL }) {
-    
-    // Use actor photo or placeholder
     const profileImage = actor.profile_path
         ? IMAGE_BASE_URL + actor.profile_path
         : "https://via.placeholder.com/200x300?text=No+Photo";
@@ -10,9 +8,9 @@ export default function ActorCard({ actor, IMAGE_BASE_URL }) {
     return (
         <div className="actor-card">
             <div className="actor-image-container">
-                <img 
+                <img
                     className="actor-image"
-                    src={profileImage} 
+                    src={profileImage}
                     alt={actor.name}
                     loading="lazy"
                 />

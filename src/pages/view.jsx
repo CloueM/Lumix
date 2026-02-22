@@ -6,19 +6,21 @@ import ActorsRow from "../components/actors-row";
 import Loading from "../components/Loading";
 
 export default function View() {
-    const { id } = useParams(); // Get movie ID from URL
+    const { id } = useParams();
     const [movie, setMovie] = useState(null);
     const [trailerKey, setTrailerKey] = useState(null);
     const [actors, setActors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Load the movie details, trailer, and cast when the page opens
     useEffect(() => {
+        if (!id) return;
+
         async function loadMovieData() {
             try {
                 setLoading(true);
 
-                // Fetch all data in parallel
                 const [movieData, videosData, castData] = await Promise.all([
                     fetchMovieDetails(id),
                     fetchMovieVideos(id),
@@ -27,15 +29,13 @@ export default function View() {
 
                 setMovie(movieData);
 
-                // Find the first YouTube trailer
+                // Find the YouTube trailer
                 const trailer = videosData.results.find(
                     video => video.type === "Trailer" && video.site === "YouTube"
                 );
-                if (trailer) {
-                    setTrailerKey(trailer.key);
-                }
+                if (trailer) setTrailerKey(trailer.key);
 
-                // Take first 15 actors
+                // Only show first 15 cast members
                 setActors(castData.cast.slice(0, 15));
 
             } catch (err) {
@@ -46,18 +46,14 @@ export default function View() {
             }
         }
 
-        if (id) {
-            loadMovieData();
-        }
-    }, [id]); // Re-run when movie ID changes
+        loadMovieData();
+    }, [id]);
 
-    if (loading) {
-        return <Loading />;
-    }
+    if (loading) return <Loading />;
 
     if (error) {
         return (
-            <div style={{ padding: '20px', color: 'red', textAlign: 'center' }}>
+            <div style={{ padding: "20px", color: "red", textAlign: "center" }}>
                 <h1>Error loading movie</h1>
                 <p>{error}</p>
             </div>
@@ -65,22 +61,21 @@ export default function View() {
     }
 
     if (!movie) {
-        return <div style={{ padding: '20px', textAlign: 'center' }}>Movie not found</div>;
+        return <div style={{ padding: "20px", textAlign: "center" }}>Movie not found</div>;
     }
 
     return (
         <div>
-            <ViewHero 
-                movie={movie} 
-                trailerKey={trailerKey} 
-                IMAGE_BASE_URL={IMAGE_BASE_URL} 
+            <ViewHero
+                movie={movie}
+                trailerKey={trailerKey}
+                IMAGE_BASE_URL={IMAGE_BASE_URL}
             />
-            
             {actors.length > 0 && (
-                <div className="category-container">
-                    <ActorsRow 
-                        actors={actors} 
-                        IMAGE_BASE_URL={IMAGE_BASE_URL} 
+                <div className="category-container category-container--no-top-padding">
+                    <ActorsRow
+                        actors={actors}
+                        IMAGE_BASE_URL={IMAGE_BASE_URL}
                     />
                 </div>
             )}

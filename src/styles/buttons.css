@@ -4,6 +4,7 @@
     margin-top: 1rem;
 }
 
+/* View / Watch button */
 .view-btn {
     display: flex;
     align-items: center;
@@ -14,16 +15,16 @@
     backdrop-filter: blur(4px) saturate(112%);
     -webkit-backdrop-filter: blur(4px) saturate(112%);
     border: none;
-    border-radius: 5rem;
+    border-radius: var(--radius-full);
     color: var(--secondary-bg);
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: var(--text-base);
+    font-weight: var(--weight-semi);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 .view-btn:hover {
-    background: rgba(255, 152, 0, 0.5);
+    background: var(--accent-glow);
     transform: translateY(-2px);
 }
 
@@ -31,33 +32,44 @@
     transform: translateY(0);
 }
 
+/* Bookmark button */
 .bookmark-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.75rem 1rem;
-    border: none;
-    border-radius: 50%;
-    color: var(--text-color);
-    font-size: 1rem;
-    font-weight: 600;
+    width: 100%;
+    padding: 0.65rem 1.25rem;
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    color: var(--text-bright);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semi);
+    letter-spacing: 0.3px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 .bookmark-btn:hover {
-    opacity: 0.8;
+    border-color: var(--accent-color);
+    color: var(--accent-color);
     transform: translateY(-2px);
+    box-shadow: 0 4px 16px var(--shadow-dark);
 }
 
 .bookmark-btn:active {
     transform: translateY(0);
+    box-shadow: none;
 }
 
 .button-icon {
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
     color: var(--accent-color);
+}
+
+.bookmark-btn .button-icon {
+    color: inherit;
 }
 
 .view-btn .button-icon {

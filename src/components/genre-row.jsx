@@ -1,37 +1,35 @@
 import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import MovieCard from "./movie-card";
-import "../styles/components/genre-row.css";
+import "../styles/genre-row.css";
 
 export default function GenreRow({ genreName, movies, IMAGE_BASE_URL }) {
     const scrollRef = useRef(null);
 
-    const scroll = (direction) => {
+    // Scroll the movie row left or right when arrow buttons are clicked
+    function scroll(direction) {
         const container = scrollRef.current;
         if (container) {
-            const scrollAmount = container.offsetWidth * 0.8;
+            const amount = container.offsetWidth * 0.8;
             container.scrollBy({
-                left: direction === 'left' ? -scrollAmount : scrollAmount,
-                behavior: 'smooth'
+                left: direction === "left" ? -amount : amount,
+                behavior: "smooth"
             });
         }
-    };
+    }
 
     return (
         <div className="genre-row">
-            <h2 className="genre-title">{genreName}</h2>
+            <h2 className="section-title genre-title">{genreName}</h2>
             <div className="movie-row-container">
                 <button
                     className="scroll-arrow scroll-arrow-left"
-                    onClick={() => scroll('left')}
+                    onClick={() => scroll("left")}
                     aria-label="Scroll left"
                 >
                     <FaChevronLeft />
                 </button>
-                <div
-                    className="movie-row-scroll"
-                    ref={scrollRef}
-                >
+                <div className="movie-row-scroll" ref={scrollRef}>
                     {movies.map(movie => (
                         <MovieCard
                             key={movie.id}
@@ -42,7 +40,7 @@ export default function GenreRow({ genreName, movies, IMAGE_BASE_URL }) {
                 </div>
                 <button
                     className="scroll-arrow scroll-arrow-right"
-                    onClick={() => scroll('right')}
+                    onClick={() => scroll("right")}
                     aria-label="Scroll right"
                 >
                     <FaChevronRight />

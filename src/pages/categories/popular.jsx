@@ -1,17 +1,16 @@
-import { fetchPopularMovies, IMAGE_BASE_URL } from "../../services/movieApi.js"
-import { useMovieData } from "../../hooks/useMovieData"
-import Loading from "../../components/Loading"
-import GenreRow from "../../components/genre-row"
+import { fetchPopularMovies, IMAGE_BASE_URL } from "../../services/movieApi.js";
+import { useMovieData } from "../../hooks/useMovieData";
+import Loading from "../../components/Loading";
+import GenreRow from "../../components/genre-row";
 
 export default function Popular() {
+    // moviesByGenre is an object like { "Action": [...], "Drama": [...] }
     const { moviesByGenre, loading, error } = useMovieData(fetchPopularMovies);
 
-    if (loading) {
-        return <Loading />;
-    }
+    if (loading) return <Loading />;
 
     if (error) {
-        return <div style={{ padding: '20px', color: 'red' }}><h1>Popular</h1><p>Error: {error}</p></div>;
+        return <div style={{ padding: "20px", color: "red" }}><p>Error: {error}</p></div>;
     }
 
     return (
@@ -26,4 +25,4 @@ export default function Popular() {
             ))}
         </div>
     );
-};
+}

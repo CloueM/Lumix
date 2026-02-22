@@ -1,14 +1,13 @@
-import "../styles/components/footer.css"
-import { FaLinkedin, FaGithub } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
-import { BiGlobe } from 'react-icons/bi';
-import logo from '../assets/lumix-logo.svg';
+import "../styles/footer.css";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { BiGlobe } from "react-icons/bi";
+import logo from "../assets/lumix-logo.svg";
 
 export default function Footer() {
     return (
         <footer className="footer">
             <div className="footer-container">
-                {/* Left Section - Get in Touch */}
                 <div className="footer-left">
                     <div className="vertical-line"></div>
                     <div className="footer-content">
@@ -34,7 +33,6 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Right Section - Copyright */}
                 <div className="footer-right">
                     <img src={logo} alt="Lumix" className="footer-logo" />
                     <div className="footer-copyright">

@@ -7,45 +7,42 @@ import TrendingToday from "../components/trending-today";
 export default function Home() {
     const { categorizedMovies, loading, error } = useHomeData();
 
-    if (loading) {
-        return <Loading />;
-    }
+    if (loading) return <Loading />;
 
     if (error) {
         return (
-            <div style={{ padding: '20px', color: 'red' }}>
-                <h1>Home</h1>
+            <div style={{ padding: "20px", color: "red" }}>
                 <p>Error: {error}</p>
             </div>
         );
     }
 
-    // Separate trending from other categories
+    // Pull trending out separately so it can use the big hero section
     const trendingMovies = categorizedMovies["Trending Today"] || [];
     const otherCategories = Object.entries(categorizedMovies).filter(
-        ([categoryName]) => categoryName !== "Trending Today"
+        ([name]) => name !== "Trending Today"
     );
 
     return (
         <div className="home-page">
             <div>
                 {trendingMovies.length > 0 && (
-                    <TrendingToday 
+                    <TrendingToday
                         movies={trendingMovies}
                         IMAGE_BASE_URL={IMAGE_BASE_URL}
                     />
                 )}
             </div>
             <div className="category-container category-container--no-top-padding">
-            {otherCategories.map(([categoryName, movies]) => (
-                <GenreRow
-                    key={categoryName}
-                    genreName={categoryName}
-                    movies={movies}
-                    IMAGE_BASE_URL={IMAGE_BASE_URL}
-                />
-            ))}     
-            </div>  
+                {otherCategories.map(([categoryName, movies]) => (
+                    <GenreRow
+                        key={categoryName}
+                        genreName={categoryName}
+                        movies={movies}
+                        IMAGE_BASE_URL={IMAGE_BASE_URL}
+                    />
+                ))}
+            </div>
         </div>
     );
 }
