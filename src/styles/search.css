@@ -140,6 +140,7 @@
 
 /* Result header */
 .search-results-header {
+    grid-column: 1 / -1;
     display: flex;
     flex-direction: column;
     padding-left: 1rem;
@@ -177,18 +178,27 @@
     margin: 0;
 }
 
-/* Grid — auto-fill with 14rem min per card */
+/* Grid — auto-fit columns exactly at --card-width-sm with no stretching */
 .search-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    grid-template-columns: repeat(auto-fill, var(--card-width-sm));
+    justify-content: center;
     gap: var(--spacing-3);
 }
 
 /* Force 2 columns minimum on narrow mobile */
-@media (max-width: 480px) {
+@media (max-width: 408px) {
     .search-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--spacing-2);
+    }
+}
+
+/* On desktop/tablet, increase the fixed card size to --card-width-lg */
+@media (min-width: 768px) {
+    .search-grid {
+        grid-template-columns: repeat(auto-fill, var(--card-width-lg));
+        gap: var(--spacing-4);
     }
 }
 

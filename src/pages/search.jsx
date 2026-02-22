@@ -152,14 +152,6 @@ export default function Search() {
                 </div>
             </div>
 
-            {/* Result count */}
-            {!loading && totalResults > 0 && (
-                <div className="search-results-header">
-                    <h2 className="search-results-title">Search Results For &ldquo;{submittedQuery}&rdquo;</h2>
-                    <p className="search-results-count">{totalResults.toLocaleString()} Results Found</p>
-                </div>
-            )}
-
 
             {/* Loading skeleton on first fetch */}
             {loading && (
@@ -183,6 +175,11 @@ export default function Search() {
             {/* Results grid */}
             {showGrid && (
                 <div className="search-grid">
+                    <div className="search-results-header">
+                        <h2 className="search-results-title">Search Results For &ldquo;{submittedQuery}&rdquo;</h2>
+                        <p className="search-results-count">{totalResults.toLocaleString()} Results Found</p>
+                    </div>
+                    
                     {movies.map(movie => (
                         <MovieCard
                             key={movie.id}
