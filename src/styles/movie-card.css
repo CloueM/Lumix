@@ -70,7 +70,7 @@
     justify-content: left;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 0;
+    margin-bottom: .5rem;
     font-weight: var(--weight-semi);
 }
 
@@ -102,7 +102,7 @@
     right: 0;
     display: flex;
     gap: 0.5rem;
-    padding: .5rem;
+    padding: .75rem;
     background: linear-gradient(to top, var(--surface-dark) 0%, transparent 100%);
 }
 
@@ -133,5 +133,12 @@
 
     .movie-title {
         font-size: var(--text-base);
+    }
+    .movie-overlay {
+        align-items: center;
+    }
+
+    .overlay-title {
+        font-size: var(--text-xl);
     }
 }

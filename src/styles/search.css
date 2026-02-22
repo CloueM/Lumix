@@ -142,9 +142,9 @@
 .search-results-header {
     display: flex;
     flex-direction: column;
-    padding-left: 1.25rem;
+    padding-left: 1rem;
     position: relative;
-    margin-bottom: var(--spacing-5);
+    margin-bottom: 1rem;
     justify-content: center;
 }
 
