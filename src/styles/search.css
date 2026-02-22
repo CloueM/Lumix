@@ -138,16 +138,43 @@
     transform: translateY(0);
 }
 
-/* Result count */
-.search-results-count {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin-bottom: var(--spacing-3);
+/* Result header */
+.search-results-header {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1.25rem;
+    position: relative;
+    margin-bottom: var(--spacing-5);
+    justify-content: center;
 }
 
-.search-results-count span {
-    color: var(--accent-color);
-    font-weight: var(--weight-semi);
+.search-results-header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    width: 0.4rem;
+    background: var(--accent-color);
+    border-radius: var(--radius-full);
+}
+
+.search-results-title {
+    font-size: 1rem;
+    font-weight: var(--weight-bold);
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.1;
+}
+
+.search-results-count {
+    font-size: 0.5rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
 }
 
 /* Grid — auto-fill with 14rem min per card */

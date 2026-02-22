@@ -10,14 +10,14 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1rem;
     background: var(--accent-color);
     backdrop-filter: blur(4px) saturate(112%);
     -webkit-backdrop-filter: blur(4px) saturate(112%);
     border: none;
     border-radius: var(--radius-full);
     color: var(--secondary-bg);
-    font-size: var(--text-base);
+
     font-weight: var(--weight-semi);
     cursor: pointer;
     transition: var(--transition);

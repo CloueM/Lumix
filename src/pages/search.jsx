@@ -154,9 +154,10 @@ export default function Search() {
 
             {/* Result count */}
             {!loading && totalResults > 0 && (
-                <p className="search-results-count">
-                    <span>{totalResults.toLocaleString()}</span> results for &ldquo;{submittedQuery}&rdquo;
-                </p>
+                <div className="search-results-header">
+                    <h2 className="search-results-title">Search Results For &ldquo;{submittedQuery}&rdquo;</h2>
+                    <p className="search-results-count">{totalResults.toLocaleString()} Results Found</p>
+                </div>
             )}
 
 
