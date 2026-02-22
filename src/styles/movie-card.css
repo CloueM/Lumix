@@ -40,7 +40,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: .5rem;
+    padding: 1rem;
 }
 
 .movie-poster-container:hover .movie-overlay {

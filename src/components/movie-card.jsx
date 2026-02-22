@@ -6,6 +6,12 @@ import "../styles/buttons.css";
 export default function MovieCard({ movie, IMAGE_BASE_URL }) {
     const navigate = useNavigate();
 
+    function truncateTitle(text) {
+        if (!text) return "Untitled";
+        if (text.length > 30) return text.substring(0, 25) + "...";
+        return text;
+    }
+
     function truncateOverview(text) {
         if (!text) return "No overview available.";
         if (text.length > 100) return text.substring(0, 100) + "...";
@@ -44,7 +50,7 @@ export default function MovieCard({ movie, IMAGE_BASE_URL }) {
                 <div className="movie-overlay">
                     <div className="overlay-content">
                         <div className="overlay-bottom-content">
-                            <h3 className="overlay-title">{movie.title}</h3>
+                            <h3 className="overlay-title">{truncateTitle(movie.title)}</h3>
                             <div className="overlay-rating">
                                 <FaStar className="star-icon" />
                                 <span>{movie.vote_average?.toFixed(1) || "N/A"}</span>
