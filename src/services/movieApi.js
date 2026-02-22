@@ -64,3 +64,13 @@ export async function fetchMovieCast(movieId) {
     const data = await res.json();
     return data;
 }
+
+// Search for movies by title - returns one page of results
+export async function searchMovies(query, page = 1) {
+    const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&language=${LANGUAGE}&query=${encodeURIComponent(query)}&page=${page}&include_adult=false`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const data = await res.json();
+    return data; // { results, page, total_pages, total_results }
+}
+

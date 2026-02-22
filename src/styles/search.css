@@ -1,0 +1,212 @@
+/* Search page */
+
+.search-page {
+    padding-top: var(--page-top-padding);
+    max-width: var(--max-width);
+    min-height: 100vh;
+    margin: 0 auto;
+
+    padding:0 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* When results are loaded, pin content to the top */
+.search-page--has-results {
+    justify-content: flex-start;
+    padding-top: 10rem;
+}
+
+/* Wrapper that gets centered when empty */
+.search-hero {
+    width: 100%;
+}
+
+/* SEARCH title row */
+.search-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: var(--spacing-3);
+}
+
+.search-header-icon {
+    color: var(--accent-color);
+    font-size: var(--text-2xl);
+}
+
+.search-header-title {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Search bar row — input pill + button side by side */
+.search-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 32rem;
+    width: 100%;
+    margin: 0 auto var(--spacing-4);
+}
+
+/* Search bar */
+.search-bar-wrapper {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--surface-color);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    padding: 0.75rem 1.25rem;
+    backdrop-filter: blur(5.2px);
+    -webkit-backdrop-filter: blur(5.2px);
+    transition: var(--transition);
+}
+
+.search-bar-wrapper:focus-within {
+    border-color: var(--accent-color);
+}
+
+.search-icon {
+    color: var(--text-muted);
+    font-size: var(--text-lg);
+    flex-shrink: 0;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-clear-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: var(--text-lg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+    padding: 0;
+}
+
+.search-clear-btn:hover {
+    color: var(--text-color);
+}
+
+.search-submit-btn {
+    background: var(--accent-color);
+    border: none;
+    border-radius: var(--radius-full);
+    color: var(--secondary-bg);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semi);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+    white-space: nowrap;
+    height:100%;
+}
+
+.search-submit-btn:hover {
+    background: var(--accent-glow);
+    transform: translateY(-1px);
+}
+
+.search-submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Result count */
+.search-results-count {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-3);
+}
+
+.search-results-count span {
+    color: var(--accent-color);
+    font-weight: var(--weight-semi);
+}
+
+/* Grid — auto-fill with 14rem min per card */
+.search-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: var(--spacing-3);
+}
+
+/* Force 2 columns minimum on narrow mobile */
+@media (max-width: 480px) {
+    .search-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-2);
+    }
+}
+
+/* Override movie-card width so it fills the grid cell */
+.search-grid .movie-card {
+    width: 100%;
+}
+
+/* Empty / placeholder state */
+.search-empty {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: var(--spacing-8) 0;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.search-empty-icon {
+    font-size: var(--text-hero-lg);
+    color: var(--border-subtle);
+}
+
+.search-empty p {
+    font-size: var(--text-base);
+    margin: 0;
+}
+
+/* Center content vertically when no results */
+.search-page-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Infinite scroll sentinel / load more */
+.search-sentinel {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-4) 0;
+}
+
+

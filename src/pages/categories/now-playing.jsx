@@ -4,7 +4,6 @@ import Loading from "../../components/Loading";
 import GenreRow from "../../components/genre-row";
 
 export default function NowPlaying() {
-    // moviesByGenre is an object like { "Action": [...], "Drama": [...] }
     const { moviesByGenre, loading, error } = useMovieData(fetchNowPlayingMovies);
 
     if (loading) return <Loading />;
