@@ -1,7 +1,7 @@
 .genre-row {
     position: relative;
-    margin-top: 1rem;
-    margin-bottom: 5rem;
+    margin-top: var(--spacing-2);
+    margin-bottom: var(--spacing-10);
 }
 
 /* Fade-out gradient at edges */
@@ -70,11 +70,11 @@
 /* Horizontal scroll container - hides scrollbar */
 .movie-row-scroll {
     display: flex;
-    gap: 1rem;
+    gap: var(--spacing-2);
     overflow-x: auto;
     overflow-y: hidden;
     scroll-behavior: smooth;
-    padding: 0 1rem;
+    padding: 0 var(--spacing-2);
     scrollbar-width: none;
 }
 

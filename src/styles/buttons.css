@@ -1,7 +1,21 @@
 .hero-buttons {
     display: flex;
-    gap: 0.75rem;
-    margin-top: 1rem;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-top: var(--spacing-sm);
+}
+
+.hero-buttons .bookmark-btn.glass {
+    flex: 0 0 auto;
+    width: var(--btn-icon-size);
+    height: var(--btn-icon-size);
+    padding: 0;
+    border-radius: 50%;
+}
+
+.hero-buttons .view-btn {
+    padding: 0.75rem 2rem;
+    font-size: var(--text-base);
 }
 
 /* View / Watch button */
@@ -9,27 +23,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
+    gap: var(--spacing-xs);
+    padding: 0.65rem 1.25rem;
     background: var(--accent-color);
-    backdrop-filter: blur(4px) saturate(112%);
-    -webkit-backdrop-filter: blur(4px) saturate(112%);
     border: none;
     border-radius: var(--radius-full);
     color: var(--secondary-bg);
-
-    font-weight: var(--weight-semi);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.3px;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px var(--shadow-md);
 }
 
 .view-btn:hover {
-    background: var(--accent-glow);
     transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--shadow-lg);
+    filter: brightness(1.1);
 }
 
 .view-btn:active {
-    transform: translateY(0);
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px var(--shadow-md);
+    filter: brightness(1);
 }
 
 /* Bookmark button */
@@ -37,39 +54,42 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    width: 100%;
+    gap: var(--spacing-xs);
     padding: 0.65rem 1.25rem;
-    background: transparent;
-    border: 1px solid var(--border-subtle);
+    background: var(--white-5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--white-15);
     border-radius: var(--radius-full);
     color: var(--text-bright);
     font-size: var(--text-sm);
     font-weight: var(--weight-semi);
     letter-spacing: 0.3px;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 10px var(--shadow-sm);
 }
 
 .bookmark-btn:hover {
-    border-color: var(--accent-color);
-    color: var(--accent-color);
+    background: var(--white-15);
+    border-color: var(--white-40);
+    color: var(--white-full);
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px var(--shadow-dark);
+    box-shadow: 0 8px 25px var(--shadow-md);
 }
 
 .bookmark-btn:active {
-    transform: translateY(0);
-    box-shadow: none;
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px var(--shadow-sm);
 }
 
 .button-icon {
-    font-size: var(--text-sm);
-    color: var(--accent-color);
+    font-size: var(--text-base);
 }
 
 .bookmark-btn .button-icon {
     color: inherit;
+    transition: color 0.3s ease;
 }
 
 .view-btn .button-icon {

@@ -102,8 +102,21 @@
     right: 0;
     display: flex;
     gap: 0.5rem;
-    padding: .75rem;
-    background: linear-gradient(to top, var(--surface-dark) 0%, transparent 100%);
+    padding: 1rem;
+    background: linear-gradient(to top, var(--overlay-card) 0%, var(--overlay-card-mid) 50%, transparent 100%);
+    align-items: center;
+}
+
+.overlay-buttons .view-btn {
+    flex: 1; /* Stretch to fill available space */
+}
+
+.overlay-buttons .bookmark-btn {
+    flex: 0 0 auto;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0; /* Override the default horizontal padding */
+    border-radius: 50%; /* Perfect circle for icon button */
 }
 
 .movie-title {

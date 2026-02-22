@@ -30,10 +30,7 @@
     background: linear-gradient(to top, var(--background-color) 0%, transparent 15%);
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+/* fadeIn keyframe is defined globally in App.css */
 
 .hero-gradient {
     position: absolute;
@@ -116,17 +113,6 @@
     line-height: 1.5;
     text-shadow: 1px 1px 4px var(--overlay-80);
     margin: 0.5rem 0 1rem 0;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 1rem;
-}
-
-.trending-hero .bookmark-btn {
-    width: auto;
-    padding: 0.75rem 1.25rem;
 }
 
 /* Dot indicators at the bottom */

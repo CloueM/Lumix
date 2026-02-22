@@ -165,7 +165,7 @@
     }
 
     .horizontal-line {
-        width: 6rem;
+        width: var(--horizontal-line-width-sm);
     }
 
     .footer-copyright {
