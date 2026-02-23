@@ -71,7 +71,7 @@
 }
 
 .hero-title {
-    font-size: var(--text-3xl);
+    font-size: var(--text-xl);
     font-weight: var(--weight-bold);
     color: var(--text-color);
     margin: 0;
