@@ -16,7 +16,7 @@ import View from './pages/view'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <div className="app">
         <Navbar />
         <main className="main-content">
