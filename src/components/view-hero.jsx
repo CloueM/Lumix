@@ -1,35 +1,62 @@
 import { FaStar, FaBookmark } from "react-icons/fa";
+import { FaRegBookmark } from "react-icons/fa6";
+import { useFavorites } from "../hooks/useFavorites";
 import "../styles/view-hero.css";
 import "../styles/buttons.css";
 
+// big hero section for movie detail
 export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
-    const backgroundImage = movie.backdrop_path
-        ? IMAGE_BASE_URL + movie.backdrop_path
-        : IMAGE_BASE_URL + movie.poster_path;
-
-    const posterImage = movie.poster_path
-        ? IMAGE_BASE_URL + movie.poster_path
-        : "https://via.placeholder.com/300x450?text=No+Poster";
-
-    const year = movie.release_date
-        ? new Date(movie.release_date).getFullYear()
-        : "N/A";
-
-    const rating = movie.vote_average
-        ? movie.vote_average.toFixed(1)
-        : "N/A";
-
-    // Convert minutes to "1h 45m" format
-    function formatRuntime(minutes) {
-        if (!minutes) return "N/A";
-        const hours = Math.floor(minutes / 60);
-        const mins = minutes % 60;
-        return `${hours}h ${mins}m`;
+    // check if movie is bookmarked
+    const { isFavorite, toggleFavorite } = useFavorites();
+    
+    let favorited = false;
+    if (movie) {
+        favorited = isFavorite(movie.id);
     }
 
-    // Format date like "January 1, 2024"
+    // use backdrop or poster
+    let backgroundImage = "";
+    if (movie.backdrop_path) {
+        backgroundImage = IMAGE_BASE_URL + movie.backdrop_path;
+    } else {
+        backgroundImage = IMAGE_BASE_URL + movie.poster_path;
+    }
+
+    // poster image next to detail
+    let posterImage = "";
+    if (movie.poster_path) {
+        posterImage = IMAGE_BASE_URL + movie.poster_path;
+    } else {
+        posterImage = "https://via.placeholder.com/300x450?text=No+Poster";
+    }
+
+    // get year from date
+    let year = "N/A";
+    if (movie.release_date) {
+        const date = new Date(movie.release_date);
+        year = date.getFullYear();
+    }
+
+    let rating = "N/A";
+    if (movie.vote_average) {
+        rating = movie.vote_average.toFixed(1);
+    }
+
+    // format runtime minute to hour
+    function formatRuntime(minutes) {
+        if (!minutes) {
+            return "N/A";
+        }
+        const hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        return hours + "h " + mins + "m";
+    }
+
+    // format date to long format
     function formatDate(dateString) {
-        if (!dateString) return "N/A";
+        if (!dateString) {
+            return "N/A";
+        }
         return new Date(dateString).toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
@@ -37,11 +64,57 @@ export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
         });
     }
 
+    let title = "";
+    if (movie.title) {
+        title = movie.title;
+    } else {
+        title = movie.name;
+    }
+
+    let status = "N/A";
+    if (movie.status) {
+        status = movie.status;
+    }
+
+    let genresText = "N/A";
+    if (movie.genres && movie.genres.length > 0) {
+        const genreNames = movie.genres.map(function(g) {
+            return g.name;
+        });
+        genresText = genreNames.join(", ");
+    }
+
+    let overview = "No description available.";
+    if (movie.overview) {
+        overview = movie.overview;
+    }
+
+    function handleBookmarkClick() {
+        toggleFavorite(movie);
+    }
+
+    let bookmarkIcon;
+    if (favorited) {
+        bookmarkIcon = <FaBookmark className="button-icon" />;
+    } else {
+        bookmarkIcon = <FaRegBookmark className="button-icon" />;
+    }
+
+    let bookmarkClass = "bookmark-btn";
+    if (favorited) {
+        bookmarkClass = "bookmark-btn active";
+    }
+
+    let bookmarkText = "Save";
+    if (favorited) {
+        bookmarkText = "Saved";
+    }
+
     return (
         <div className="view-hero">
             <div
                 className="view-backdrop"
-                style={{ backgroundImage: `url(${backgroundImage})` }}
+                style={{ backgroundImage: "url(" + backgroundImage + ")" }}
             />
             <div className="view-gradient" />
 
@@ -49,15 +122,16 @@ export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
                 <div className="view-main-panel">
                     <div className="view-content-row">
                         <div className="view-media-col">
-                            <h2 className="details-title">{movie.title || movie.name}</h2>
+                            <h2 className="details-title">{title}</h2>
 
                             {trailerKey && (
                                 <div className="view-trailer">
                                     <iframe
-                                        src={`https://www.youtube.com/embed/${trailerKey}?autoplay=0&rel=0`}
+                                        src={"https://www.youtube.com/embed/" + trailerKey + "?autoplay=0&rel=0"}
                                         title="Movie Trailer"
                                         frameBorder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        referrerPolicy="strict-origin-when-cross-origin"
                                         allowFullScreen
                                     />
                                 </div>
@@ -69,7 +143,7 @@ export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
                                 <div className="details-poster">
                                     <img
                                         src={posterImage}
-                                        alt={movie.title || "Movie Poster"}
+                                        alt={title}
                                         loading="lazy"
                                     />
                                 </div>
@@ -78,7 +152,7 @@ export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
                                     <div className="meta-grid">
                                         <div className="meta-item">
                                             <span className="meta-label">Status</span>
-                                            <span className="meta-value">{movie.status || "N/A"}</span>
+                                            <span className="meta-value">{status}</span>
                                         </div>
                                         <div className="meta-item">
                                             <span className="meta-label">Runtime</span>
@@ -98,9 +172,7 @@ export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
                                             <span className="meta-label">Genres</span>
                                             <div className="meta-genres">
                                                 <span className="meta-value">
-                                                    {movie.genres && movie.genres.length > 0
-                                                        ? movie.genres.map(g => g.name).join(", ")
-                                                        : "N/A"}
+                                                    {genresText}
                                                 </span>
                                             </div>
                                         </div>
@@ -109,12 +181,16 @@ export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
                             </div>
 
                             <p className="details-overview">
-                                {movie.overview || "No description available."}
+                                {overview}
                             </p>
 
-                            <button className="bookmark-btn">
-                                <FaBookmark className="button-icon" />
-                                Save
+                            <button 
+                                className={bookmarkClass}
+                                onClick={handleBookmarkClick}
+                                aria-label="Bookmark"
+                            >
+                                {bookmarkIcon}
+                                {bookmarkText}
                             </button>
                         </div>
                     </div>

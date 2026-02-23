@@ -18,7 +18,6 @@
     font-size: var(--text-base);
 }
 
-/* View / Watch button */
 .view-btn {
     display: flex;
     align-items: center;
@@ -34,22 +33,21 @@
     letter-spacing: 0.3px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 4px 15px var(--shadow-md);
+    box-shadow: var(--shadow-md);
 }
 
 .view-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px var(--shadow-lg);
+    box-shadow: var(--shadow-lg);
     filter: brightness(1.1);
 }
 
 .view-btn:active {
     transform: translateY(1px);
-    box-shadow: 0 2px 10px var(--shadow-md);
+    box-shadow: var(--shadow-sm);
     filter: brightness(1);
 }
 
-/* Bookmark button */
 .bookmark-btn {
     display: flex;
     align-items: center;
@@ -57,8 +55,8 @@
     gap: var(--spacing-xs);
     padding: 0.65rem 1.25rem;
     background: var(--white-5);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: var(--blur-lg);
+    -webkit-backdrop-filter: var(--blur-lg);
     border: 1px solid var(--white-15);
     border-radius: var(--radius-full);
     color: var(--text-bright);
@@ -67,7 +65,7 @@
     letter-spacing: 0.3px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 4px 10px var(--shadow-sm);
+    box-shadow: var(--shadow-sm);
 }
 
 .bookmark-btn:hover {
@@ -75,12 +73,26 @@
     border-color: var(--white-40);
     color: var(--white-full);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--shadow-md);
+    box-shadow: var(--shadow-md);
 }
 
 .bookmark-btn:active {
     transform: translateY(1px);
-    box-shadow: 0 2px 8px var(--shadow-sm);
+    box-shadow: var(--shadow-sm);
+}
+
+.bookmark-btn.active {
+    background: var(--accent-hover);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    box-shadow: var(--shadow-accent-md);
+}
+
+.bookmark-btn.active:hover {
+    background: var(--accent-active);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    box-shadow: var(--shadow-accent-lg);
 }
 
 .button-icon {

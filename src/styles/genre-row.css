@@ -4,7 +4,6 @@
     margin-bottom: var(--spacing-10);
 }
 
-/* Fade-out gradient at edges */
 .genre-row::before {
     content: '';
     position: absolute;
@@ -17,13 +16,10 @@
     background: linear-gradient(to right, var(--background-color) 0%, transparent 5%, transparent 95%, var(--background-color) 100%);
 }
 
-/* .genre-title uses the shared .section-title class from App.css */
-
 .movie-row-container {
     position: relative;
 }
 
-/* Arrow scroll buttons */
 .scroll-arrow {
     position: absolute;
     top: 50%;
@@ -62,12 +58,11 @@
 }
 
 .scroll-arrow:hover {
-    backdrop-filter: blur(4px) saturate(112%);
-    -webkit-backdrop-filter: blur(4px) saturate(112%);
+    backdrop-filter: var(--blur-sm) saturate(112%);
+    -webkit-backdrop-filter: var(--blur-sm) saturate(112%);
     background-color: var(--surface-dark);
 }
 
-/* Horizontal scroll container - hides scrollbar */
 .movie-row-scroll {
     display: flex;
     gap: var(--spacing-2);
@@ -82,7 +77,6 @@
     display: none;
 }
 
-/* Responsive */
 @media (min-width: 768px) {
     .scroll-arrow-left {
         padding-left: 0.5rem;

@@ -14,7 +14,6 @@
     background-repeat: no-repeat;
 }
 
-/* Bottom fade so the page blends in */
 .view-backdrop::before {
     content: '';
     position: absolute;
@@ -64,7 +63,7 @@
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-sm);
-    padding-bottom: 0; /* Removed fixed 2rem bottom padding to eliminate the gap */
+    padding-bottom: 0; 
 }
 
 .view-content-row {
@@ -81,7 +80,6 @@
     gap: var(--spacing-xs);
 }
 
-/* 16:9 iframe container */
 .view-trailer {
     position: relative;
     width: 100%;
@@ -134,20 +132,19 @@
     scrollbar-color: var(--border-subtle) transparent;
 }
 
-/* Glassmorphic info panel */
 .view-info-col {
     display: flex;
     flex-direction: column;
-    align-self: center; /* Changed from center to flex-start so it grows naturally */
+    align-self: center; 
     width: 100%;
     gap: var(--spacing-sm);
     padding: 1.25rem;
     background: var(--surface-color);
     border-radius: var(--radius-md);
     box-shadow: var(--spacing-2) var(--spacing-2) var(--spacing-4) var(--shadow-dark);
-    backdrop-filter: blur(5.2px);
-    -webkit-backdrop-filter: blur(5.2px);
-    height: auto; /* Allow full expansion on mobile */
+    backdrop-filter: var(--blur-md);
+    -webkit-backdrop-filter: var(--blur-md);
+    height: auto; 
 }
 
 .details-poster-row {
@@ -186,7 +183,7 @@
     font-size: var(--text-xs);
     font-weight: var(--weight-semi);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.03125rem;
     color: var(--text-dim);
 }
 
@@ -227,8 +224,7 @@
     color: var(--accent-color);
 }
 
-/* Mobile landscape - poster and info side by side */
-@media (min-width: 425px) {
+@media (min-width: 26.5625rem) {
     .details-poster-row {
         flex-direction: row;
         align-items: flex-start;
@@ -250,8 +246,7 @@
     }
 }
 
-/* Desktop - media and info panel side by side */
-@media (min-width: 1024px) {
+@media (min-width: 64rem) {
     .view-content-row {
         flex-direction: row-reverse;
         align-items: stretch;

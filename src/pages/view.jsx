@@ -5,22 +5,29 @@ import ViewHero from "../components/view-hero";
 import ActorsRow from "../components/actors-row";
 import Loading from "../components/Loading";
 
+// the actual page that shows the movie detail and actors
 export default function View() {
+    // get id from web url
     const { id } = useParams();
+    
+    // state for movie info
     const [movie, setMovie] = useState(null);
     const [trailerKey, setTrailerKey] = useState(null);
     const [actors, setActors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Load the movie details, trailer, and cast when the page opens
-    useEffect(() => {
-        if (!id) return;
+    // load data when page first load
+    useEffect(function() {
+        if (!id) {
+            return;
+        }
 
         async function loadMovieData() {
             try {
                 setLoading(true);
 
+                // download all data from api at once
                 const [movieData, videosData, castData] = await Promise.all([
                     fetchMovieDetails(id),
                     fetchMovieVideos(id),
@@ -29,19 +36,30 @@ export default function View() {
 
                 setMovie(movieData);
 
-                // Find the YouTube trailer
-                const trailer = videosData.results.find(
-                    video => video.type === "Trailer" && video.site === "YouTube"
-                );
-                if (trailer) setTrailerKey(trailer.key);
+                // look for youtube trailer in video list
+                let foundTrailer = null;
+                for (let i = 0; i < videosData.results.length; i++) {
+                    const video = videosData.results[i];
+                    if (video.type === "Trailer" && video.site === "YouTube") {
+                        foundTrailer = video;
+                        break;
+                    }
+                }
+                
+                if (foundTrailer) {
+                    setTrailerKey(foundTrailer.key);
+                }
 
-                // Only show first 15 cast members
-                setActors(castData.cast.slice(0, 15));
+                // only get first 15 actors so it is not too much
+                const topActors = castData.cast.slice(0, 15);
+                setActors(topActors);
 
             } catch (err) {
+                // save error if fetching fail
                 setError(err.message);
                 console.error("Failed to load movie data:", err);
             } finally {
+                // stop loading screen
                 setLoading(false);
             }
         }
@@ -49,8 +67,12 @@ export default function View() {
         loadMovieData();
     }, [id]);
 
-    if (loading) return <Loading />;
+    // show loading icon
+    if (loading) {
+        return <Loading />;
+    }
 
+    // show error details
     if (error) {
         return (
             <div style={{ padding: "20px", color: "red", textAlign: "center" }}>
@@ -60,17 +82,25 @@ export default function View() {
         );
     }
 
+    // fallback when movie does not exist
     if (!movie) {
-        return <div style={{ padding: "20px", textAlign: "center" }}>Movie not found</div>;
+        return (
+            <div style={{ padding: "20px", textAlign: "center" }}>
+                Movie not found
+            </div>
+        );
     }
 
     return (
         <div>
+            {/* huge banner with poster and details */}
             <ViewHero
                 movie={movie}
                 trailerKey={trailerKey}
                 IMAGE_BASE_URL={IMAGE_BASE_URL}
             />
+            
+            {/* show actors row if we have them */}
             {actors.length > 0 && (
                 <div className="category-container category-container--no-top-padding">
                     <ActorsRow
@@ -82,3 +112,4 @@ export default function View() {
         </div>
     );
 }
+

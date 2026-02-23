@@ -7,37 +7,41 @@ import {
     fetchTrendingToday
 } from "../services/movieApi.js";
 
+// hook to get all data for home page
 export function useHomeData() {
     const [categorizedMovies, setCategorizedMovies] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
+    // load data when page first load
+    useEffect(function() {
         async function loadData() {
             try {
                 setLoading(true);
 
-                // Fetch all categories at the same time instead of one by one
-                const [trendingData, nowPlayingData, popularData, topRatedData, upcomingData] = await Promise.all([
-                    fetchTrendingToday(),
-                    fetchNowPlayingMovies(),
-                    fetchPopularMovies(),
-                    fetchTopRatedMovies(),
-                    fetchUpcomingMovies()
-                ]);
+                // get movie data for each category
+                const trendingData = await fetchTrendingToday();
+                const nowPlayingData = await fetchNowPlayingMovies();
+                const popularData = await fetchPopularMovies();
+                const topRatedData = await fetchTopRatedMovies();
+                const upcomingData = await fetchUpcomingMovies();
 
-                // Only keep 10 movies per category for the home page
-                setCategorizedMovies({
+                // save only top 10 from each category
+                const newCategories = {
                     "Trending Today": trendingData.results.slice(0, 10),
                     "Now Playing": nowPlayingData.results.slice(0, 10),
                     "Popular": popularData.results.slice(0, 10),
                     "Top Rated": topRatedData.results.slice(0, 10),
                     "Upcoming": upcomingData.results.slice(0, 10)
-                });
+                };
+                
+                setCategorizedMovies(newCategories);
             } catch (err) {
+                // save error if fail
                 setError(err.message);
                 console.error("Failed to load home data:", err);
             } finally {
+                // stop loading screen
                 setLoading(false);
             }
         }
@@ -45,5 +49,7 @@ export function useHomeData() {
         loadData();
     }, []);
 
+    // return the states
     return { categorizedMovies, loading, error };
 }
+

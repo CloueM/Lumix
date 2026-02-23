@@ -3,25 +3,42 @@ import { useMovieData } from "../../hooks/useMovieData";
 import Loading from "../../components/Loading";
 import GenreRow from "../../components/genre-row";
 
+// page that shows movies with highest ratings
 export default function TopRated() {
+    // get movies data from our custom hook
     const { moviesByGenre, loading, error } = useMovieData(fetchTopRatedMovies);
 
-    if (loading) return <Loading />;
-
-    if (error) {
-        return <div style={{ padding: "20px", color: "red" }}><p>Error: {error}</p></div>;
+    // show loading screen while waiting for data
+    if (loading) {
+        return <Loading />;
     }
+
+    // show error if something goes wrong
+    if (error) {
+        return (
+            <div style={{ padding: "20px", color: "red" }}>
+                <p>Error: {error}</p>
+            </div>
+        );
+    }
+
+    // get all the genre names from the object so we can loop them
+    const genres = Object.keys(moviesByGenre);
 
     return (
         <div className="category-container">
-            {Object.entries(moviesByGenre).map(([genreName, movies]) => (
-                <GenreRow
-                    key={genreName}
-                    genreName={genreName}
-                    movies={movies}
-                    IMAGE_BASE_URL={IMAGE_BASE_URL}
-                />
-            ))}
+            {/* loop through each genre and create a row for it */}
+            {genres.map(function(genreName) {
+                const movies = moviesByGenre[genreName];
+                return (
+                    <GenreRow
+                        key={genreName}
+                        genreName={genreName}
+                        movies={movies}
+                        IMAGE_BASE_URL={IMAGE_BASE_URL}
+                    />
+                );
+            })}
         </div>
     );
 }

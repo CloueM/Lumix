@@ -25,15 +25,14 @@
     display: block;
 }
 
-/* Glassmorphic overlay shown on hover */
 .movie-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    backdrop-filter: blur(4px) saturate(112%);
-    -webkit-backdrop-filter: blur(4px) saturate(112%);
+    backdrop-filter: var(--blur-sm) saturate(112%);
+    -webkit-backdrop-filter: var(--blur-sm) saturate(112%);
     background-color: var(--surface-dark);
     opacity: 0;
     transition: var(--transition);
@@ -94,7 +93,6 @@
     text-align: left;
 }
 
-/* Buttons pinned to bottom of overlay */
 .overlay-buttons {
     position: absolute;
     bottom: 0;
@@ -108,15 +106,15 @@
 }
 
 .overlay-buttons .view-btn {
-    flex: 1; /* Stretch to fill available space */
+    flex: 1; 
 }
 
 .overlay-buttons .bookmark-btn {
     flex: 0 0 auto;
     width: 2.75rem;
     height: 2.75rem;
-    padding: 0; /* Override the default horizontal padding */
-    border-radius: 50%; /* Perfect circle for icon button */
+    padding: 0; 
+    border-radius: 50%; 
 }
 
 .movie-title {
@@ -138,7 +136,6 @@
     white-space: nowrap;
 }
 
-/* Responsive */
 @media (min-width: 768px) {
     .movie-card {
         width: var(--card-width-lg);

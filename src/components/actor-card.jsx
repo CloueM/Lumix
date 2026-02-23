@@ -1,9 +1,14 @@
 import "../styles/movie-cast.css";
 
+// show actor picture and name
 export default function ActorCard({ actor, IMAGE_BASE_URL }) {
-    const profileImage = actor.profile_path
-        ? IMAGE_BASE_URL + actor.profile_path
-        : "https://via.placeholder.com/200x300?text=No+Photo";
+    // if no photo use placeholder
+    let profileImage = "";
+    if (actor.profile_path) {
+        profileImage = IMAGE_BASE_URL + actor.profile_path;
+    } else {
+        profileImage = "https://via.placeholder.com/200x300?text=No+Photo";
+    }
 
     return (
         <div className="actor-card">

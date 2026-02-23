@@ -3,16 +3,31 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import MovieCard from "./movie-card";
 import "../styles/genre-row.css";
 
+// scroll list of movie for genre horizontally
 export default function GenreRow({ genreName, movies, IMAGE_BASE_URL }) {
     const scrollRef = useRef(null);
 
-    // Scroll the movie row left or right when arrow buttons are clicked
-    function scroll(direction) {
+    // scroll left
+    function scrollLeft() {
         const container = scrollRef.current;
-        if (container) {
+        if (container !== null) {
+            // Calculate scroll distance: 80% of the visible container width
             const amount = container.offsetWidth * 0.8;
             container.scrollBy({
-                left: direction === "left" ? -amount : amount,
+                left: -amount,
+                behavior: "smooth"
+            });
+        }
+    }
+
+    // scroll right
+    function scrollRight() {
+        const container = scrollRef.current;
+        if (container !== null) {
+            // Calculate scroll distance: 80% of the visible container width
+            const amount = container.offsetWidth * 0.8;
+            container.scrollBy({
+                left: amount,
                 behavior: "smooth"
             });
         }
@@ -24,23 +39,26 @@ export default function GenreRow({ genreName, movies, IMAGE_BASE_URL }) {
             <div className="movie-row-container">
                 <button
                     className="scroll-arrow scroll-arrow-left"
-                    onClick={() => scroll("left")}
+                    onClick={scrollLeft}
                     aria-label="Scroll left"
                 >
                     <FaChevronLeft />
                 </button>
                 <div className="movie-row-scroll" ref={scrollRef}>
-                    {movies.map(movie => (
-                        <MovieCard
-                            key={movie.id}
-                            movie={movie}
-                            IMAGE_BASE_URL={IMAGE_BASE_URL}
-                        />
-                    ))}
+                    {/* Loop through each movie and render a MovieCard for it */}
+                    {movies.map(function(movie) {
+                        return (
+                            <MovieCard
+                                key={movie.id}
+                                movie={movie}
+                                IMAGE_BASE_URL={IMAGE_BASE_URL}
+                            />
+                        );
+                    })}
                 </div>
                 <button
                     className="scroll-arrow scroll-arrow-right"
-                    onClick={() => scroll("right")}
+                    onClick={scrollRight}
                     aria-label="Scroll right"
                 >
                     <FaChevronRight />
@@ -49,3 +67,4 @@ export default function GenreRow({ genreName, movies, IMAGE_BASE_URL }) {
         </div>
     );
 }
+
