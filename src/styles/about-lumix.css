@@ -5,19 +5,33 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: var(--page-top-padding) 1rem 1rem 1rem;
+    padding: var(--page-top-padding) 2rem 4rem 2rem;
     animation: fadeIn 0.4s ease;
-    min-height: 100vh;
+    min-height: calc(100vh - 300px); /* adjust to show footer properly */
     position: relative;
     overflow: hidden;
 }
 
 .about-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .about-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+    }
+}
+
+/* LEFT COLUMN STYLES */
+.about-left-column {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
-    width: 100%;
 }
 
 .about-title {
@@ -30,11 +44,10 @@
 }
 
 .about-description {
-    font-size: var(--text-base);
+    font-size: var(--text-lg);
     color: var(--text-bright);
     line-height: 1.6;
-    max-width: 40rem;
-    margin-bottom: var(--spacing-10);
+    margin-bottom: 2rem;
 }
 
 .attribution-section {
@@ -53,13 +66,6 @@
     text-align: left;
 }
 
-/* Make attribution padding responsive on smaller screens */
-@media (max-width: 26.5625rem) {
-    .attribution-section {
-        padding: var(--spacing-3) var(--spacing-4);
-    }
-}
-
 .tmdb-logo {
     height: var(--spacing-10);
     width: auto;
@@ -71,5 +77,51 @@
     color: var(--text-muted);
     font-weight: var(--weight-normal);
     line-height: 1.5;
+    margin: 0;
+}
+
+/* Make attribution padding responsive on smaller screens */
+@media (max-width: 425px) {
+    .attribution-section {
+        padding: var(--spacing-3) var(--spacing-4);
+    }
+}
+
+/* RIGHT COLUMN (FAQ) STYLES */
+.about-right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: left;
+}
+
+.faq-title {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-semi);
+    color: var(--text-color);
+    margin: 0;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.75rem;
+    display: inline-block;
+}
+
+.faq-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.faq-question {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semi);
+    color: var(--text-bright);
+    margin: 0;
+}
+
+.faq-answer {
+    font-size: var(--text-base);
+    color: var(--text-muted);
+    line-height: 1.6;
     margin: 0;
 }
