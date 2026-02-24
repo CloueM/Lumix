@@ -11,6 +11,8 @@ import UserBookmark from './pages/user-bookmark'
 import AboutLumix from './pages/about-lumix'
 import TopRated from './pages/categories/top-rated'
 import View from './pages/view'
+import PrivacyPolicy from './pages/privacy-policy'
+import TermsOfService from './pages/terms-of-service'
 
 
 
@@ -30,6 +32,8 @@ function App() {
             <Route path="/bookmark" element={<UserBookmark />} />
             <Route path="/about" element={<AboutLumix />} />
             <Route path="/movie/:id" element={<View />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
           </Routes>
         </main>
         <Footer />

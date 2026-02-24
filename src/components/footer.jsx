@@ -27,21 +27,21 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="footer-socials">
-            <h3 className="socials-title">Connect With Us</h3>
-            <div className="social-icons">
+          <div className="footer-network">
+            <h3 className="network-title">Connect With Me</h3>
+            <div className="network-icons">
               <a
                 href="https://www.linkedin.com/in/cloue-macadangdang-365133240"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="social-link"
+                className="network-link"
                 aria-label="LinkedIn"
               >
                 <FaLinkedin />
               </a>
               <a
                 href="mailto:senp41.mac@gmail.com"
-                className="social-link"
+                className="network-link"
                 aria-label="Email"
               >
                 <MdEmail />
@@ -50,7 +50,7 @@ export default function Footer() {
                 href="https://clouemac.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="social-link"
+                className="network-link"
                 aria-label="Portfolio"
               >
                 <BiGlobe />
@@ -59,7 +59,7 @@ export default function Footer() {
                 href="https://github.com/CloueM"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="social-link"
+                className="network-link"
                 aria-label="GitHub"
               >
                 <FaGithub />
@@ -75,12 +75,12 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Lumix. All rights reserved.
           </p>
           <div className="legal-links">
-            <a href="#" className="legal-link">
+            <Link to="/privacy-policy" className="legal-link">
               Privacy Policy
-            </a>
-            <a href="#" className="legal-link">
+            </Link>
+            <Link to="/terms-of-service" className="legal-link">
               Terms of Service
-            </a>
+            </Link>
           </div>
         </div>
       </div>

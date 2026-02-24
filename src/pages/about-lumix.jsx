@@ -11,7 +11,7 @@ export default function AboutLumix() {
                     <h1 className="about-title">About Lumix</h1>
                     
                     <p className="about-description">
-                        Lumix is a simple website made for you to explore, discover, and bookmark your favorite movies and TV series. You can use this site to find trending shows, search for specific titles, and save them for later!
+                        Lumix is a simple website I made for you to explore, discover, and bookmark your favorite movies and TV series. You can use this site to find trending shows, search for specific titles, and save them for later!
                     </p>
 
                     <div className="attribution-section">
@@ -32,14 +32,14 @@ export default function AboutLumix() {
                     <div className="faq-item">
                         <h3 className="faq-question">How Your Information is Stored:</h3>
                         <p className="faq-answer">
-                            Lumix respects your privacy. This does not collect or store any of your personal information on our servers. When you save a movie or show to your bookmarks, it is only saved inside your own internet browser (using Local Storage). This means your bookmarks are completely private, but if you clear your browser history or use a different device, your saved shows will not be there.
+                            I respect your privacy. I do not collect or store any of your personal information on my servers. When you save a movie or show to your bookmarks, it is only saved inside your own internet browser (using Local Storage). This means your bookmarks are completely private, but if you clear your browser history or use a different device, your saved shows will not be there.
                         </p>
                     </div>
 
                     <div className="faq-item">
                         <h3 className="faq-question">Where Do We Get the Movies?</h3>
                         <p className="faq-answer">
-                            All the movie and TV show details you see on this website come from The Movie Database (TMDb) API. Lumix uses their free service to show you the posters, descriptions, and ratings.
+                            All the movie and TV show details you see on this website come from The Movie Database (TMDb) API. I use their free service to show you the posters, descriptions, and ratings.
                         </p>
                     </div>
 
