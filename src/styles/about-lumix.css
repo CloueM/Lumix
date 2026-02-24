@@ -7,7 +7,7 @@
     align-items: center;
     padding: var(--page-top-padding) 2rem 4rem 2rem;
     animation: fadeIn 0.4s ease;
-    min-height: calc(100vh - 300px); /* adjust to show footer properly */
+    min-height: calc(100vh - 300px); 
     position: relative;
     overflow: hidden;
 }
@@ -26,25 +26,26 @@
     }
 }
 
-/* LEFT COLUMN STYLES */
 .about-left-column {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
+    align-self: center;
 }
 
 .about-title {
-    font-size: var(--text-3xl);
+    font-size: var(--text-2xl);
     font-weight: var(--weight-bold);
     color: var(--text-color);
     letter-spacing: 0.125rem;
     margin-bottom: var(--spacing-4);
+    margin-top: 2rem;
     text-transform: uppercase;
 }
 
 .about-description {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     color: var(--text-bright);
     line-height: 1.6;
     margin-bottom: 2rem;
@@ -80,14 +81,12 @@
     margin: 0;
 }
 
-/* Make attribution padding responsive on smaller screens */
 @media (max-width: 425px) {
     .attribution-section {
         padding: var(--spacing-3) var(--spacing-4);
     }
 }
 
-/* RIGHT COLUMN (FAQ) STYLES */
 .about-right-column {
     display: flex;
     flex-direction: column;
