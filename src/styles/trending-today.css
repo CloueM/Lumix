@@ -5,6 +5,23 @@
     overflow: hidden;
 }
 
+/* Sliding track — sits all slides side-by-side horizontally */
+.hero-track {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    touch-action: pan-y; /* let browser handle vertical scroll; we hijack horizontal */
+}
+
+/* Each slide occupies the full viewport width */
+.hero-slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
 .hero-backdrop {
     position: absolute;
     top: 0;
@@ -117,9 +134,10 @@
     bottom: 6rem;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 3;
+    z-index: 10;
     display: flex;
     gap: 0.5rem;
+    pointer-events: auto;
 }
 
 .indicator {

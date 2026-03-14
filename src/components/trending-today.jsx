@@ -1,30 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaStar, FaPlay, FaBookmark } from "react-icons/fa";
+import { FaPlay, FaBookmark } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa6";
+import { DraggableCore } from "react-draggable";
 import { useFavorites } from "../hooks/useFavorites";
 import "../styles/trending-today.css";
 import "../styles/buttons.css";
 
-// banner for trending movies
 export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
     const navigate = useNavigate();
     const { isFavorite, toggleFavorite } = useFavorites();
-    // track which movie in list is showing
+
+    // which slide is currently showing
     const [currentIndex, setCurrentIndex] = useState(0);
+    // how many pixels the track has moved during a drag
+    const [dragOffset, setDragOffset] = useState(0);
+    // whether to use a smooth animation when snapping to a slide
+    const [isAnimating, setIsAnimating] = useState(false);
 
-    const currentMovie = movies[currentIndex];
-    
-    // check if movie is in favorite
-    let favorited = false;
-    if (currentMovie) {
-        favorited = isFavorite(currentMovie.id);
-    }
+    const trackRef = useRef(null);
+    const hasDragged = useRef(false);
+    const dragOffsetRef = useRef(0);
 
-    // change movie thats showing every 20 seconds
+    // automatically go to the next slide every 20 seconds
     useEffect(() => {
-        const interval = setInterval(function() {
-            // go back to start if array end
+        const interval = setInterval(() => {
+            setIsAnimating(true);
             setCurrentIndex(function(prev) {
                 if (prev + 1 >= movies.length) {
                     return 0;
@@ -33,146 +34,236 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
                 }
             });
         }, 20000);
-        
-        // clean up timer
-        return function() {
-            clearInterval(interval);
-        };
+
+        return () => clearInterval(interval);
     }, [movies.length]);
 
     // dont show anything if there are no movies
-    if (!currentMovie) {
+    if (movies.length === 0) {
         return null;
     }
 
-    // use backdrop or poster image for fallback
-    let backgroundImage = "";
-    if (currentMovie.backdrop_path) {
-        backgroundImage = IMAGE_BASE_URL + currentMovie.backdrop_path;
-    } else {
-        backgroundImage = IMAGE_BASE_URL + currentMovie.poster_path;
-    }
-
-    // get release year for movie or tv
-    let year = "N/A";
-    if (currentMovie.release_date) {
-        const date = new Date(currentMovie.release_date);
-        year = date.getFullYear();
-    } else if (currentMovie.first_air_date) {
-        const date = new Date(currentMovie.first_air_date);
-        year = date.getFullYear();
-    }
-
-    // get info for display
-    let title = "";
-    if (currentMovie.title) {
-        title = currentMovie.title;
-    } else if (currentMovie.name) {
-        title = currentMovie.name;
-    }
-
-    let rating = "N/A";
-    if (currentMovie.vote_average) {
-        rating = currentMovie.vote_average.toFixed(1);
-    }
-    
-    let mediaType = "Movie";
-    if (currentMovie.media_type === "tv") {
-        mediaType = "TV Series";
-    }
-
-    // makes the overview shorter
-    let overview = "";
-    if (currentMovie.overview) {
-        if (currentMovie.overview.length > 300) {
-            overview = currentMovie.overview.substring(0, 300).trim() + "...";
-        } else {
-            overview = currentMovie.overview;
+    // this runs while the user is dragging
+    function handleDrag(e, data) {
+        if (Math.abs(data.x) > 5) {
+            hasDragged.current = true;
         }
+        setDragOffset(function(prev) {
+            const next = prev + data.deltaX;
+            dragOffsetRef.current = next;
+            return next;
+        });
     }
 
-    // click buttons
-    function handleViewClick() {
-        navigate("/movie/" + currentMovie.id);
+    // this runs when the user lets go
+    function handleDragStop(e, data) {
+        const finalOffset = dragOffsetRef.current;
+
+        setIsAnimating(true);
+        setDragOffset(0);
+        dragOffsetRef.current = 0;
+
+        // change slide if dragged far enough
+        if (finalOffset < -50) {
+            // dragged left, go to next slide
+            setCurrentIndex(function(prev) {
+                if (prev + 1 >= movies.length) {
+                    return 0;
+                } else {
+                    return prev + 1;
+                }
+            });
+        } else if (finalOffset > 50) {
+            // dragged right, go to previous slide
+            setCurrentIndex(function(prev) {
+                if (prev === 0) {
+                    return movies.length - 1;
+                } else {
+                    return prev - 1;
+                }
+            });
+        }
+
+        setTimeout(function() {
+            hasDragged.current = false;
+        }, 0);
     }
 
-    function handleBookmarkClick() {
-        toggleFavorite(currentMovie);
+    function handleDragStart() {
+        hasDragged.current = false;
+        setIsAnimating(false);
+        setDragOffset(0);
+        dragOffsetRef.current = 0;
     }
 
-    let bookmarkIcon;
-    if (favorited) {
-        bookmarkIcon = <FaBookmark className="button-icon" />;
-    } else {
-        bookmarkIcon = <FaRegBookmark className="button-icon" />;
+    // dont navigate if the user was just dragging
+    function handleViewClick(movie) {
+        if (hasDragged.current) {
+            return;
+        }
+        navigate("/movie/" + movie.id);
     }
 
-    let bookmarkClass = "bookmark-btn glass";
-    if (favorited) {
-        bookmarkClass = "bookmark-btn glass active";
+    function handleBookmarkClick(movie) {
+        if (hasDragged.current) {
+            return;
+        }
+        toggleFavorite(movie);
     }
+
+    const translateX = "calc(" + (-currentIndex * 100) + "% + " + dragOffset + "px)";
+
+    const trackStyle = {
+        transform: "translateX(" + translateX + ")",
+        transition: isAnimating ? "transform 0.45s ease" : "none",
+    };
 
     return (
-        <div className="trending-hero">
-            <div
-                className="hero-backdrop"
-                style={{ backgroundImage: "url(" + backgroundImage + ")" }}
+        <div className="trending-hero" style={{ cursor: "grab" }}>
+            <DraggableCore
+                onStart={handleDragStart}
+                onDrag={handleDrag}
+                onStop={handleDragStop}
+                nodeRef={trackRef}
             >
-                <div className="hero-gradient"></div>
-            </div>
-
-            <div className="hero-content">
-                <div className="hero-badge glass">Trending Today</div>
-                <h1 className="hero-title">{title}</h1>
-
-                <div className="hero-meta">
-                    <span className="hero-rating">⭐ {rating}</span>
-                    <span className="hero-separator">•</span>
-                    <span className="hero-year">{year}</span>
-                    <span className="hero-separator">•</span>
-                    <span className="hero-type">{mediaType}</span>
-                </div>
-
-                <p className="hero-overview">{overview}</p>
-
-                {/* Action buttons (View Details and Bookmark) */}
-                <div className="hero-buttons">
-                    <button
-                        className="view-btn"
-                        onClick={handleViewClick}
-                        aria-label="View movie details"
-                    >
-                        <FaPlay className="button-icon" />
-                        View
-                    </button>
-                    <button
-                        className={bookmarkClass}
-                        onClick={handleBookmarkClick}
-                        aria-label="Bookmark"
-                    >
-                        {bookmarkIcon}
-                    </button>
-                </div>
-
-                {/* Navigation dots to manually skip between trending items */}
-                <div className="hero-indicators">
+                {/* all the slides are in here side by side */}
+                <div
+                    className="hero-track"
+                    ref={trackRef}
+                    style={trackStyle}
+                >
                     {movies.map(function(movie, index) {
-                        let indicatorClass = "indicator";
-                        if (index === currentIndex) {
-                            indicatorClass = "indicator active";
+                        // get the background image for this movie
+                        let backgroundImage = "";
+                        if (movie.backdrop_path) {
+                            backgroundImage = IMAGE_BASE_URL + movie.backdrop_path;
+                        } else if (movie.poster_path) {
+                            backgroundImage = IMAGE_BASE_URL + movie.poster_path;
                         }
-                        
+
+                        // get the release year
+                        let year = "N/A";
+                        if (movie.release_date) {
+                            year = new Date(movie.release_date).getFullYear();
+                        } else if (movie.first_air_date) {
+                            year = new Date(movie.first_air_date).getFullYear();
+                        }
+
+                        // get the title
+                        let title = "";
+                        if (movie.title) {
+                            title = movie.title;
+                        } else if (movie.name) {
+                            title = movie.name;
+                        }
+
+                        // get the rating
+                        let rating = "N/A";
+                        if (movie.vote_average) {
+                            rating = movie.vote_average.toFixed(1);
+                        }
+
+                        // check if its a movie or tv show
+                        let mediaType = "Movie";
+                        if (movie.media_type === "tv") {
+                            mediaType = "TV Series";
+                        }
+
+                        // shorten the overview so it doesnt take up too much space
+                        let overview = "";
+                        if (movie.overview) {
+                            if (movie.overview.length > 300) {
+                                overview = movie.overview.substring(0, 300).trim() + "...";
+                            } else {
+                                overview = movie.overview;
+                            }
+                        }
+
+                        // check if this movie is bookmarked
+                        let favorited = isFavorite(movie.id);
+
+                        let bookmarkClass = "bookmark-btn glass";
+                        if (favorited) {
+                            bookmarkClass = "bookmark-btn glass active";
+                        }
+
+                        let bookmarkIcon;
+                        if (favorited) {
+                            bookmarkIcon = <FaBookmark className="button-icon" />;
+                        } else {
+                            bookmarkIcon = <FaRegBookmark className="button-icon" />;
+                        }
+
                         return (
-                            <button
-                                key={index}
-                                className={indicatorClass}
-                                onClick={function() { setCurrentIndex(index); }}
-                            />
+                            <div className="hero-slide" key={movie.id || index}>
+                                <div
+                                    className="hero-backdrop"
+                                    style={{ backgroundImage: "url(" + backgroundImage + ")" }}
+                                >
+                                    <div className="hero-gradient"></div>
+                                </div>
+
+                                <div className="hero-content">
+                                    <div className="hero-badge glass">Trending Today</div>
+                                    <h1 className="hero-title">{title}</h1>
+
+                                    <div className="hero-meta">
+                                        <span className="hero-rating">⭐ {rating}</span>
+                                        <span className="hero-separator">•</span>
+                                        <span className="hero-year">{year}</span>
+                                        <span className="hero-separator">•</span>
+                                        <span className="hero-type">{mediaType}</span>
+                                    </div>
+
+                                    <p className="hero-overview">{overview}</p>
+
+                                    <div className="hero-buttons">
+                                        <button
+                                            className="view-btn"
+                                            onClick={() => handleViewClick(movie)}
+                                            aria-label="View movie details"
+                                            style={{ cursor: "pointer" }}
+                                        >
+                                            <FaPlay className="button-icon" />
+                                            View
+                                        </button>
+                                        <button
+                                            className={bookmarkClass}
+                                            onClick={() => handleBookmarkClick(movie)}
+                                            aria-label="Bookmark"
+                                            style={{ cursor: "pointer" }}
+                                        >
+                                            {bookmarkIcon}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         );
                     })}
                 </div>
+            </DraggableCore>
+
+            {/* dots at the bottom so you can see which slide youre on */}
+            <div className="hero-indicators">
+                {movies.map(function(movie, index) {
+                    let indicatorClass = "indicator";
+                    if (index === currentIndex) {
+                        indicatorClass = "indicator active";
+                    }
+
+                    return (
+                        <button
+                            key={index}
+                            className={indicatorClass}
+                            onClick={function() {
+                                setIsAnimating(true);
+                                setCurrentIndex(index);
+                            }}
+                            style={{ cursor: "pointer" }}
+                        />
+                    );
+                })}
             </div>
         </div>
     );
 }
-
