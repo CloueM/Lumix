@@ -2,20 +2,27 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
-    margin-top: var(--spacing-sm);
+    width: 100%;
+    margin: 0;
 }
 
 .hero-buttons .bookmark-btn.glass {
     flex: 0 0 auto;
-    width: var(--btn-icon-size);
-    height: var(--btn-icon-size);
+    width: 3.5rem;
+    height: 3.5rem;
     padding: 0;
-    border-radius: 50%;
+    border-radius: var(--radius-sm);
+    background: var(--white-5);
+    backdrop-filter: var(--blur-lg);
+    -webkit-backdrop-filter: var(--blur-lg);
+    border: 1px solid var(--border-subtle);
 }
 
 .hero-buttons .view-btn {
-    padding: 0.75rem 2rem;
-    font-size: var(--text-base);
+    flex: 1;
+    padding: 0.85rem 1.5rem;
+    font-size: 1.05rem;
+    border-radius: var(--radius-sm);
 }
 
 .view-btn {
@@ -23,28 +30,20 @@
     align-items: center;
     justify-content: center;
     gap: var(--spacing-xs);
-    padding: 0.65rem 1.25rem;
     background: var(--accent-color);
     border: none;
-    border-radius: var(--radius-full);
-    color: var(--secondary-bg);
-    font-size: var(--text-sm);
+    color: var(--white-full);
     font-weight: var(--weight-bold);
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: var(--shadow-md);
 }
 
 .view-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
     filter: brightness(1.1);
 }
 
 .view-btn:active {
-    transform: translateY(1px);
-    box-shadow: var(--shadow-sm);
     filter: brightness(1);
 }
 
@@ -65,34 +64,28 @@
     letter-spacing: 0.3px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: var(--shadow-sm);
 }
 
 .bookmark-btn:hover {
     background: var(--white-15);
     border-color: var(--white-40);
     color: var(--white-full);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
 }
 
 .bookmark-btn:active {
-    transform: translateY(1px);
-    box-shadow: var(--shadow-sm);
+    background: var(--white-15);
 }
 
 .bookmark-btn.active {
     background: var(--accent-hover);
     border-color: var(--accent-color);
     color: var(--accent-color);
-    box-shadow: var(--shadow-accent-md);
 }
 
 .bookmark-btn.active:hover {
     background: var(--accent-active);
     border-color: var(--accent-color);
     color: var(--accent-color);
-    box-shadow: var(--shadow-accent-lg);
 }
 
 .button-icon {
@@ -105,5 +98,22 @@
 }
 
 .view-btn .button-icon {
-    color: var(--secondary-bg);
+    color: var(--white-full);
+}
+
+@media (min-width: 768px) {
+    .hero-buttons {
+        width: auto;
+    }
+    .hero-buttons .view-btn {
+        flex: 0 0 auto;
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+        border-radius: var(--radius-full);
+    }
+    .hero-buttons .bookmark-btn.glass {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 50%;
+    }
 }
