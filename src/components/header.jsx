@@ -162,6 +162,7 @@ export default function Navbar() {
                     title="Now Playing"
                 >
                     <RiMovie2Line />
+                    <span className="nav-label-right">Now Playing</span>
                 </button>
                 <button
                     className={getCategoryClass("/top-rated")}
@@ -169,6 +170,7 @@ export default function Navbar() {
                     title="Top Rated"
                 >
                     <AiOutlineStar />
+                    <span className="nav-label-right">Top Rated</span>
                 </button>
                 <button
                     className={getCategoryClass("/popular")}
@@ -176,6 +178,7 @@ export default function Navbar() {
                     title="Popular"
                 >
                     <MdMovie />
+                    <span className="nav-label-right">Popular</span>
                 </button>
                 <button
                     className={getCategoryClass("/upcoming")}
@@ -183,6 +186,7 @@ export default function Navbar() {
                     title="Upcoming"
                 >
                     <BiCalendar />
+                    <span className="nav-label-right">Upcoming</span>
                 </button>
             </nav>
 
@@ -195,6 +199,7 @@ export default function Navbar() {
                         title="Home"
                     >
                         <AiOutlineHome />
+                        <span className="nav-label-bottom">Home</span>
                     </button>
                     <button
                         className={getNavClass("/search")}
@@ -202,6 +207,7 @@ export default function Navbar() {
                         title="Search"
                     >
                         <BiSearch />
+                        <span className="nav-label-bottom">Search</span>
                     </button>
                     <button
                         className={getNavClass("/bookmark")}
@@ -209,6 +215,7 @@ export default function Navbar() {
                         title="Bookmark"
                     >
                         <MdBookmark />
+                        <span className="nav-label-bottom">Bookmark</span>
                     </button>
                 </nav>
             </header>
