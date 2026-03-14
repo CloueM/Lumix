@@ -23,7 +23,7 @@ Follow these simple steps to run the website on your own computer:
    Open your terminal and type:
 
    ```bash
-   git clone <your-repository-url>
+   git clone https://github.com/CloueM/Lumix.git
    cd Lumix
    ```
 
@@ -36,19 +36,22 @@ Follow these simple steps to run the website on your own computer:
 
 3. **Set up the secret keys**:
    Copy the `.env.example` file and save it as `.env`.
-
-   _On Windows (Command Prompt), you can run:_ `copy .env.example .env`
-
-   _On Mac/Linux, you can run:_ `cp .env.example .env`
-
    Open the new `.env` file and replace the placeholder text with your real TMDb keys:
 
    ```env
    VITE_TMDB_API_KEY="Your API key on TMDb"
    VITE_TMDB_ACCESS_TOKEN="Your API key on TMDb"
-   VITE_BASE_URL="https://api.themoviedb.org/3"
-   VITE_IMAGE_BASE_URL="https://image.tmdb.org/t/p/original"
    ```
+
+   To get your API key on TMDb, go to https://www.themoviedb.org/ and sign up.
+   Then go to Profile > Settings > API (on your left tab).
+   Under the Request an API Key section, click "Click here".
+   Fill in the required details:
+   - Application Name: e.g., "My Movie App"
+   - Application URL: Use any placeholder like https://www.example.com
+   - Application Summary: Describe your project (e.g., "I want to display things with TMDB metadata.")
+   - Contact Info: You can use fake details (name, phone, address) — it’s not verified.
+     Submit and retrieve your key: Click Submit. Once approved (usually instantly), Copy and paste it in `.env`
 
 4. **Start the website**:
    Type this command:
@@ -58,4 +61,4 @@ Follow these simple steps to run the website on your own computer:
    ```
 
 5. **View the website**:
-   Open your browser and put the link shown in your terminal (usually `http://localhost:5173`).
+   Open your browser and put the link shown in your terminal (usually `http://localhost:5173/lumix/`).
