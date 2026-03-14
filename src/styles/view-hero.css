@@ -35,9 +35,9 @@
     z-index: 0;
     background: linear-gradient(
         to top,
-        var(--overlay-95) 0%,
-        var(--overlay-70) 30%,
-        var(--overlay-40) 60%,
+        rgba(14, 14, 14, 0.98) 0%,
+        rgba(0, 0, 0, 0.8) 25%,
+        rgba(0, 0, 0, 0.4) 60%,
         transparent 100%
     );
 }
@@ -49,8 +49,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: var(--spacing-2) var(--spacing-2) 0 var(--spacing-2);
-    padding-bottom: var(--spacing-10);
+    padding: 0 var(--spacing-3) var(--spacing-6);
     justify-content: flex-end;
     align-items: center;
 }
@@ -62,7 +61,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-4);
     padding-bottom: 0; 
 }
 
@@ -70,7 +69,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-2);
+    gap: var(--spacing-4);
 }
 
 .view-media-col {
@@ -86,7 +85,13 @@
     aspect-ratio: 16 / 9;
     border-radius: var(--spacing-4);
     overflow: hidden;
-    box-shadow: 0 var(--spacing-1) var(--spacing-4) var(--shadow-dark);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.view-trailer:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.8);
 }
 
 .view-trailer iframe {
@@ -112,9 +117,12 @@
 }
 
 .details-title {
-    font-size: var(--text-2xl);
+    font-size: clamp(2rem, 5vw + 1rem, 3.5rem);
     font-weight: var(--weight-bold);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     color: var(--text-color);
+    text-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.8);
     margin: 0;
     width: 100%;
     text-align: left;
@@ -137,9 +145,10 @@
     flex-direction: column;
     align-self: center; 
     width: 100%;
-    gap: var(--spacing-sm);
-    padding: 1.25rem;
-    background: var(--surface-color);
+    gap: var(--spacing-3);
+    padding: var(--spacing-3);
+    background: var(--surface-dark);
+    border: 1px solid var(--white-15);
     border-radius: var(--radius-md);
     box-shadow: var(--spacing-2) var(--spacing-2) var(--spacing-4) var(--shadow-dark);
     backdrop-filter: var(--blur-md);
@@ -176,7 +185,7 @@
 .meta-item {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: var(--spacing-1);
 }
 
 .meta-label {
@@ -249,7 +258,8 @@
 @media (min-width: 64rem) {
     .view-content-row {
         flex-direction: row-reverse;
-        align-items: stretch;
+        align-items: flex-end;
+        gap: var(--spacing-6);
     }
 
     .view-media-col {
@@ -260,6 +270,7 @@
     .view-info-col {
         width: var(--info-panel-width);
         flex-shrink: 0;
+        padding: var(--spacing-4);
     }
 
     .details-title {

@@ -53,6 +53,7 @@
     justify-content: center;
     gap: var(--spacing-xs);
     padding: 0.65rem 1.25rem;
+    min-height: 3rem;
     background: var(--white-5);
     backdrop-filter: var(--blur-lg);
     -webkit-backdrop-filter: var(--blur-lg);
