@@ -51,16 +51,23 @@ export function useMovieLogos(moviesInput) {
                     let goodLogo = null;
                     
                     if (data.logos && data.logos.length > 0) {
-                        // loop logos to find english version using find
-                        let englishLogo = data.logos.find(function(logo) {
+                        // find all english logos
+                        let englishLogos = data.logos.filter(function(logo) {
                             return logo.iso_639_1 === "en";
                         });
                         
-                        if (englishLogo) {
-                            goodLogo = englishLogo;
-                        } else {
-                            // if no english logo, just pick the first one
-                            goodLogo = data.logos[0];
+                        // if we have english logos use them, otherwise check all logos
+                        let logosToCheck = englishLogos.length > 0 ? englishLogos : data.logos;
+
+                        // start by assuming the first one is the best
+                        goodLogo = logosToCheck[0];
+
+                        // loop through the rest to find the widest one (highest aspect ratio)
+                        // this prevents tall, stacked logos with multiple lines from being chosen
+                        for (let j = 1; j < logosToCheck.length; j++) {
+                            if (logosToCheck[j].aspect_ratio > goodLogo.aspect_ratio) {
+                                goodLogo = logosToCheck[j];
+                            }
                         }
                         
                         // save it into our object
