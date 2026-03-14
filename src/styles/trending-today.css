@@ -68,7 +68,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: var(--page-top-padding) 1rem 1rem 1rem;
     justify-content: center;
     gap: .5rem;
 }
@@ -213,7 +213,7 @@
 
     .hero-gradient {
         height: 100vh;
-        /* create a cinematic vignette on desktop */
+        /* cinematic vignette on desktop */
         background: radial-gradient(circle at 70% 30%, transparent 0%, var(--overlay-40) 60%, var(--overlay-95) 100%),
                     linear-gradient(to top, var(--overlay-95) 0%, var(--overlay-70) 20%, transparent 60%);
     }

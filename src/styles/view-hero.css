@@ -130,6 +130,18 @@
     z-index: 10;
 }
 
+.details-logo {
+    max-height: 8rem;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    margin-bottom: var(--spacing-sm);
+    filter: drop-shadow(var(--shadow-hero));
+    align-self: flex-start;
+    z-index: 10;
+    position: relative;
+}
+
 .details-overview {
     font-size: var(--text-base);
     color: var(--text-bright);
@@ -275,6 +287,11 @@
 
     .details-title {
         font-size: var(--text-3xl);
+    }
+
+    .details-logo {
+        max-height: 7rem; /* 112px */
+        margin-bottom: var(--spacing-md);
     }
 
     .details-overview {

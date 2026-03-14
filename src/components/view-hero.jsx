@@ -1,6 +1,7 @@
 import { FaStar, FaBookmark } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa6";
 import { useFavorites } from "../hooks/useFavorites";
+import { useMovieLogos } from "../hooks/useMovieLogos";
 import "../styles/view-hero.css";
 import "../styles/buttons.css";
 
@@ -8,6 +9,7 @@ import "../styles/buttons.css";
 export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
     // check if movie is bookmarked
     const { isFavorite, toggleFavorite } = useFavorites();
+    const logos = useMovieLogos(movie);
     
     let favorited = false;
     if (movie) {
@@ -122,7 +124,16 @@ export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
                 <div className="view-main-panel">
                     <div className="view-content-row">
                         <div className="view-media-col">
-                            <h2 className="details-title">{title}</h2>
+                            {logos[movie.id] ? (
+                                <img 
+                                    src={IMAGE_BASE_URL + logos[movie.id]} 
+                                    alt={`${title} logo`} 
+                                    className="details-logo" 
+                                    draggable="false"
+                                />
+                            ) : (
+                                <h2 className="details-title">{title}</h2>
+                            )}
 
                             {trailerKey && (
                                 <div className="view-trailer">
