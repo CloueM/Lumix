@@ -99,6 +99,15 @@
     letter-spacing: -0.02em;
 }
 
+.hero-logo {
+    max-height: var(--hero-logo-max-height);
+    width: auto;
+    object-fit: contain;
+    margin-bottom: var(--spacing-sm);
+    filter: drop-shadow(var(--shadow-hero));
+    align-self: flex-start;
+}
+
 .hero-meta {
     display: flex;
     align-items: center;
@@ -178,6 +187,10 @@
         line-height: 1;
         letter-spacing: -0.03em;
         max-width: 80%;
+    }
+
+    .hero-logo {
+        margin-bottom: var(--spacing-md);
     }
 
     .hero-meta {

@@ -4,12 +4,14 @@ import { FaPlay, FaBookmark } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa6";
 import { DraggableCore } from "react-draggable";
 import { useFavorites } from "../hooks/useFavorites";
+import { useMovieLogos } from "../hooks/useMovieLogos";
 import "../styles/trending-today.css";
 import "../styles/buttons.css";
 
 export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
     const navigate = useNavigate();
     const { isFavorite, toggleFavorite } = useFavorites();
+    const logos = useMovieLogos(movies);
 
     // which slide is currently showing
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -205,7 +207,16 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
 
                                 <div className="hero-content">
                                     <div className="hero-badge glass">Trending Today</div>
-                                    <h1 className="hero-title">{title}</h1>
+                                    {logos[movie.id] ? (
+                                        <img 
+                                            src={IMAGE_BASE_URL + logos[movie.id]} 
+                                            alt={`${title} logo`} 
+                                            className="hero-logo" 
+                                            draggable="false"
+                                        />
+                                    ) : (
+                                        <h1 className="hero-title">{title}</h1>
+                                    )}
 
                                     <div className="hero-meta">
                                         <span className="hero-rating">⭐ {rating}</span>
