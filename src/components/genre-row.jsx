@@ -1,14 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { DraggableCore } from "react-draggable";
 import MovieCard from "./movie-card";
 import "../styles/genre-row.css";
 
 export default function GenreRow({ genreName, movies, IMAGE_BASE_URL }) {
     const scrollRef = useRef(null);
-    const isDragging = useRef(false);
-    const hasDragged = useRef(false);
-    const [isGrabbing, setIsGrabbing] = useState(false);
 
     // scroll left when the arrow is clicked
     function scrollLeft() {
@@ -34,36 +30,6 @@ export default function GenreRow({ genreName, movies, IMAGE_BASE_URL }) {
         }
     }
 
-    function handleDragStart() {
-        isDragging.current = true;
-        hasDragged.current = false;
-        setIsGrabbing(true);
-        if (scrollRef.current) {
-            scrollRef.current.style.scrollBehavior = "auto";
-        }
-    }
-
-    function handleDrag(e, data) {
-        if (Math.abs(data.deltaX) > 2) {
-            hasDragged.current = true;
-        }
-        // move the scroll the opposite way of the drag
-        if (scrollRef.current) {
-            scrollRef.current.scrollLeft -= data.deltaX;
-        }
-    }
-
-    function handleDragStop() {
-        isDragging.current = false;
-        setIsGrabbing(false);
-        if (scrollRef.current) {
-            scrollRef.current.style.scrollBehavior = "smooth";
-        }
-        setTimeout(function() {
-            hasDragged.current = false;
-        }, 0);
-    }
-
     return (
         <div className="genre-row">
             <h2 className="section-title genre-title">{genreName}</h2>
@@ -76,30 +42,21 @@ export default function GenreRow({ genreName, movies, IMAGE_BASE_URL }) {
                     <FaChevronLeft />
                 </button>
 
-                <DraggableCore
-                    onStart={handleDragStart}
-                    onDrag={handleDrag}
-                    onStop={handleDragStop}
-                    nodeRef={scrollRef}
+                <div
+                    className="movie-row-scroll"
+                    ref={scrollRef}
                 >
-                    <div
-                        className="movie-row-scroll"
-                        ref={scrollRef}
-                        style={{ cursor: isGrabbing ? "grabbing" : "grab", userSelect: "none" }}
-                    >
-                        {/* loop through each movie and make a card for it */}
-                        {movies.map(function(movie) {
-                            return (
-                                <MovieCard
-                                    key={movie.id}
-                                    movie={movie}
-                                    IMAGE_BASE_URL={IMAGE_BASE_URL}
-                                    hasDragged={hasDragged}
-                                />
-                            );
-                        })}
-                    </div>
-                </DraggableCore>
+                    {/* loop through each movie and make a card for it */}
+                    {movies.map(function(movie) {
+                        return (
+                            <MovieCard
+                                key={movie.id}
+                                movie={movie}
+                                IMAGE_BASE_URL={IMAGE_BASE_URL}
+                            />
+                        );
+                    })}
+                </div>
 
                 <button
                     className="scroll-arrow scroll-arrow-right"

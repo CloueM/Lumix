@@ -54,29 +54,16 @@
     transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* 
- * MOBILE UX: Disable hover overlays entirely on mobile devices.
- * Hover states confuse touch interfaces, causing sticky taps.
- */
-@media (hover: none) {
-    .movie-overlay {
-        display: none;
-    }
+.movie-poster-container:hover .movie-overlay,
+.movie-poster-container:focus-within .movie-overlay {
+    opacity: 1;
+    /* Cinematic bottom gradient so text pops */
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 40%, transparent 100%);
 }
 
-/* 
- * DESKTOP UX: Smooth elegant fade + slide-up interaction
- */
-@media (hover: hover) {
-    .movie-poster-container:hover .movie-overlay {
-        opacity: 1;
-        /* Cinematic bottom gradient so text pops */
-        background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 40%, transparent 100%);
-    }
-
-    .movie-poster-container:hover .overlay-content {
-        transform: translateY(0);
-    }
+.movie-poster-container:hover .overlay-content,
+.movie-poster-container:focus-within .overlay-content {
+    transform: translateY(0);
 }
 
 .overlay-title {

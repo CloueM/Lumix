@@ -6,7 +6,7 @@ import "../styles/movie-card.css";
 import "../styles/buttons.css";
 
 // single movie poster card
-export default function MovieCard({ movie, IMAGE_BASE_URL, hasDragged }) {
+export default function MovieCard({ movie, IMAGE_BASE_URL }) {
     // for going to other page
     const navigate = useNavigate();
     // manage favorite movies
@@ -52,20 +52,12 @@ export default function MovieCard({ movie, IMAGE_BASE_URL, hasDragged }) {
     // handle bookmark click
     function handleBookmark(e) {
         e.stopPropagation();
-        // dont bookmark if the user was just scrolling
-        if (hasDragged && hasDragged.current) {
-            return;
-        }
         toggleFavorite(movie);
     }
 
     // go to movie page when click view
     function handleView(e) {
         e.stopPropagation();
-        // dont navigate if the user was just scrolling
-        if (hasDragged && hasDragged.current) {
-            return;
-        }
         navigate("/movie/" + movie.id);
     }
 
