@@ -130,23 +130,9 @@
 }
 
 .header-left,
-.header-center,
 .header-right {
     display: flex;
     align-items: center;
-}
-
-.header-center {
-    flex: 1;
-    justify-content: center;
-}
-
-.page-title {
-    font-size: var(--text-lg);
-    font-weight: var(--weight-bold);
-    color: var(--text-color);
-    margin: 0;
-    text-transform: uppercase;
 }
 
 .logo-btn {
