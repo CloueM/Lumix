@@ -99,14 +99,16 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
     }
 
     // dont navigate if the user was just dragging
-    function handleViewClick(movie) {
+    function handleViewClick(e, movie) {
+        e.stopPropagation();
         if (hasDragged.current) {
             return;
         }
         navigate("/movie/" + movie.id);
     }
 
-    function handleBookmarkClick(movie) {
+    function handleBookmarkClick(e, movie) {
+        e.stopPropagation();
         if (hasDragged.current) {
             return;
         }
@@ -231,7 +233,8 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
                                     <div className="hero-buttons">
                                         <button
                                             className="view-btn"
-                                            onClick={() => handleViewClick(movie)}
+                                            onClick={(e) => handleViewClick(e, movie)}
+                                            onTouchEnd={(e) => handleViewClick(e, movie)}
                                             aria-label="View movie details"
                                             style={{ cursor: "pointer" }}
                                         >
@@ -240,7 +243,8 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
                                         </button>
                                         <button
                                             className={bookmarkClass}
-                                            onClick={() => handleBookmarkClick(movie)}
+                                            onClick={(e) => handleBookmarkClick(e, movie)}
+                                            onTouchEnd={(e) => handleBookmarkClick(e, movie)}
                                             aria-label="Bookmark"
                                             style={{ cursor: "pointer" }}
                                         >
