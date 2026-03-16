@@ -31,7 +31,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* Start fully transparent */
     background: transparent;
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -49,7 +48,7 @@
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--border-subtle) transparent;
-    /* Push content down slightly so it can slide up */
+    /* Push content down so it can slide up */
     transform: translateY(15px);
     transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -89,7 +88,7 @@
 }
 
 .overlay-date {
-    display: none; /* Hide date on cards to save space, year is enough if we had it. Or just rely on rating */
+    display: none;
 }
 
 .overlay-overview {
@@ -113,20 +112,22 @@
 }
 
 .overlay-buttons .view-btn {
-    flex: 1; 
-    padding: 0.6rem;
-    font-size: 0.9rem;
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: var(--text-sm);
     border-radius: var(--radius-sm);
+    min-height: 2.75rem; /* 44px touch target */
 }
 
 .overlay-buttons .bookmark-btn {
     flex: 0 0 auto;
-    width: 2.5rem;
-    height: 2.5rem;
-    padding: 0; 
-    border-radius: var(--radius-sm); 
+    width: 2.75rem;  /* 44px touch target */
+    height: 2.75rem;
+    padding: 0;
+    border-radius: var(--radius-sm);
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
+    border: 1px solid var(--border-subtle);
 }
 
 .movie-title {

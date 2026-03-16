@@ -20,9 +20,10 @@
 
 .hero-buttons .view-btn {
     flex: 1;
-    padding: 0.85rem 1.5rem;
-    font-size: 1.05rem;
+    padding: 1rem;
+    font-size: 1rem;
     border-radius: var(--radius-sm);
+    max-width: 50%;
 }
 
 .view-btn {
@@ -52,7 +53,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--spacing-xs);
-    padding: 0.65rem 1.25rem;
+    padding: 1rem;
     min-height: 3rem;
     background: var(--white-5);
     backdrop-filter: var(--blur-lg);
@@ -108,8 +109,7 @@
     }
     .hero-buttons .view-btn {
         flex: 0 0 auto;
-        padding: 1rem 2.5rem;
-        font-size: 1.1rem;
+        padding: 1rem 2rem;
         border-radius: var(--radius-full);
     }
     .hero-buttons .bookmark-btn.glass {
