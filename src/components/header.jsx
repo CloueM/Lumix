@@ -60,15 +60,14 @@ export default function Navbar() {
     }
 
     // build class for category bar
-    let categoryNavClass = "category-nav glass";
+    let categoryNavClass = "category-nav";
     if (!showCategoryNav) {
-        categoryNavClass = "category-nav glass hidden";
+        categoryNavClass = "category-nav hidden";
     }
 
 
     return (
         <>
-            {/* The very top bar showing the logo, page title, and about button */}
             <div className="top-bar">
                 <div className="top-bar-container">
                     <div className="header-left">
@@ -77,6 +76,42 @@ export default function Navbar() {
                         </a>
                     </div>
 
+                    {/* The secondary navigation bar for selecting movie categories */}
+                    <nav className={categoryNavClass}>
+                        <button
+                            className={getCategoryClass("/now-playing")}
+                            onClick={function() { navigate("/now-playing"); }}
+                            title="Now Playing"
+                        >
+                            <RiMovie2Line />
+                            <span className="nav-label-right">Now Playing</span>
+                        </button>
+                        <button
+                            className={getCategoryClass("/top-rated")}
+                            onClick={function() { navigate("/top-rated"); }}
+                            title="Top Rated"
+                        >
+                            <AiOutlineStar />
+                            <span className="nav-label-right">Top Rated</span>
+                        </button>
+                        <button
+                            className={getCategoryClass("/popular")}
+                            onClick={function() { navigate("/popular"); }}
+                            title="Popular"
+                        >
+                            <MdMovie />
+                            <span className="nav-label-right">Popular</span>
+                        </button>
+                        <button
+                            className={getCategoryClass("/upcoming")}
+                            onClick={function() { navigate("/upcoming"); }}
+                            title="Upcoming"
+                        >
+                            <BiCalendar />
+                            <span className="nav-label-right">Upcoming</span>
+                        </button>
+                    </nav>
+
                     <div className="header-right">
                         <button className="about-btn" onClick={function() { navigate("/about"); }} title="About">
                             <BiInfoCircle />
@@ -84,42 +119,6 @@ export default function Navbar() {
                     </div>
                 </div>
             </div>
-
-            {/* The secondary navigation bar for selecting movie categories */}
-            <nav className={categoryNavClass}>
-                <button
-                    className={getCategoryClass("/now-playing")}
-                    onClick={function() { navigate("/now-playing"); }}
-                    title="Now Playing"
-                >
-                    <RiMovie2Line />
-                    <span className="nav-label-right">Now Playing</span>
-                </button>
-                <button
-                    className={getCategoryClass("/top-rated")}
-                    onClick={function() { navigate("/top-rated"); }}
-                    title="Top Rated"
-                >
-                    <AiOutlineStar />
-                    <span className="nav-label-right">Top Rated</span>
-                </button>
-                <button
-                    className={getCategoryClass("/popular")}
-                    onClick={function() { navigate("/popular"); }}
-                    title="Popular"
-                >
-                    <MdMovie />
-                    <span className="nav-label-right">Popular</span>
-                </button>
-                <button
-                    className={getCategoryClass("/upcoming")}
-                    onClick={function() { navigate("/upcoming"); }}
-                    title="Upcoming"
-                >
-                    <BiCalendar />
-                    <span className="nav-label-right">Upcoming</span>
-                </button>
-            </nav>
 
             {/* The primary bottom-ish navigation bar for main features (Home, Search, Bookmarks) */}
             <header className="header">
