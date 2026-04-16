@@ -82,19 +82,17 @@
 }
 
 .bookmark-btn:active {
-    background: var(--white-15);
+    transform: translateY(-1px) scale(0.96);
 }
 
 .bookmark-btn.active {
-    background: var(--accent-hover);
+    background: var(--accent-color);
     border-color: var(--accent-color);
-    color: var(--accent-color);
+    color: var(--white-full);
 }
 
 .bookmark-btn.active:hover {
-    background: var(--accent-active);
-    border-color: var(--accent-color);
-    color: var(--accent-color);
+    transform: translateY(-3px);
 }
 
 .button-icon {
