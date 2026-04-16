@@ -140,6 +140,35 @@
     overflow: hidden;
 }
 
+.hero-indicators {
+    position: absolute;
+    bottom: 6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 0.5rem;
+    pointer-events: auto;
+}
+
+.indicator {
+    width: var(--indicator-width-sm);
+    height: var(--indicator-height-sm);
+    background: var(--text-dim);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 0;
+}
+
+.indicator:hover {
+    background: var(--border-subtle);
+}
+
+.indicator.active {
+    background: var(--accent-color);
+}
+
 @media (min-width: 48rem) {
     .hero-title {
         font-size: 3.5rem;
@@ -169,5 +198,10 @@
         height: 100vh;
         background: radial-gradient(circle at 70% 30%, transparent 0%, var(--overlay-40) 60%, var(--overlay-95) 100%),
                     linear-gradient(to top, var(--overlay-95) 0%, var(--overlay-70) 20%, transparent 60%);
+    }
+
+    .indicator {
+        width: var(--indicator-width-lg);
+        height: var(--indicator-height-lg);
     }
 }

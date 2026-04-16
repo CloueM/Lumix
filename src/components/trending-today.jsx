@@ -14,7 +14,22 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
     const logos = useMovieLogos(movies);
     const [menuPosition, setMenuPosition] = useState(null);
     const [activeMovie, setActiveMovie] = useState(null);
+    const [activeIndex, setActiveIndex] = useState(0);
     const trackRef = useRef(null);
+
+    // Sync activeIndex with scroll position
+    useEffect(() => {
+        const container = trackRef.current;
+        if (!container) return;
+
+        const handleScroll = () => {
+            const index = Math.round(container.scrollLeft / container.offsetWidth);
+            setActiveIndex(index);
+        };
+
+        container.addEventListener("scroll", handleScroll);
+        return () => container.removeEventListener("scroll", handleScroll);
+    }, []);
 
     // automatically go to the next slide every 5 seconds
     useEffect(() => {
@@ -170,6 +185,32 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
                                 </div>
                             </div>
                         </div>
+                    );
+                })}
+            </div>
+
+            <div className="hero-indicators">
+                {movies.map(function(_, index) {
+                    let indicatorClass = "indicator";
+                    if (index === activeIndex) {
+                        indicatorClass = "indicator active";
+                    }
+
+                    return (
+                        <button
+                            key={index}
+                            className={indicatorClass}
+                            onClick={function() {
+                                const container = trackRef.current;
+                                if (container) {
+                                    container.scrollTo({
+                                        left: index * container.offsetWidth,
+                                        behavior: "smooth"
+                                    });
+                                }
+                            }}
+                            aria-label={`Go to slide ${index + 1}`}
+                        />
                     );
                 })}
             </div>
