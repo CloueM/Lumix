@@ -32,8 +32,13 @@ export default function Navbar() {
 
 
                     <div className="header-right">
-                        <button className="about-btn" onClick={function() { navigate("/about"); }} title="About">
+                        <button 
+                            className={"nav-btn about-nav-btn " + (location.pathname === "/about" ? "active" : "")} 
+                            onClick={function() { navigate("/about"); }} 
+                            title="About"
+                        >
                             <BiInfoCircle />
+                            <span className="nav-label-bottom">About</span>
                         </button>
                     </div>
                 </div>

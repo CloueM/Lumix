@@ -3,11 +3,11 @@
     top: 0;
     left: 0;
     right: 0;
-    background: var(--surface-color);
-    box-shadow: 0 var(--spacing-2) var(--spacing-4) var(--shadow-dark);
-    backdrop-filter: var(--blur-md);
-    -webkit-backdrop-filter: var(--blur-md);
-    z-index: 15;
+    z-index: 1000;
+    background: rgba(26, 26, 26, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .top-bar-container {
@@ -17,8 +17,14 @@
     width: 100%;
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.25rem;
     position: relative;
+}
+
+@media (min-width: 768px) {
+    .top-bar-container {
+        padding: 0.5rem 2rem;
+    }
 }
 
 
@@ -54,35 +60,23 @@
 }
 
 .logo-image {
-    height: var(--spacing-8);
+    height: 3.5rem;
     width: auto;
-    transition: transform 0.5s ease;
+    transition: transform 0.3s ease;
 }
 
 .logo-btn:hover .logo-image {
-    transform: scale(1);
+    transform: scale(1.05);
 }
 
-.about-btn {
-    background: none;
-    border: 0.125rem solid var(--accent-color);
-    color: var(--accent-color);
-    font-size: var(--text-lg);
-    width: var(--icon-btn-size);
-    height: var(--icon-btn-size);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 var(--spacing-1);
+.about-nav-btn {
+    padding: 0.4rem 1.25rem;
 }
 
-.about-btn:hover {
-    background: var(--accent-color);
-    color: var(--secondary-bg);
-    transform: rotate(15deg) scale(1.1);
+@media (min-width: 768px) {
+    .about-nav-btn {
+        padding: 0.65rem 1.5rem;
+    }
 }
 
 .header-nav.glass {
