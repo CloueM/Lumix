@@ -187,10 +187,19 @@
 
 .filter-nav-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 1.25rem 1rem 0;
     max-width: var(--max-width);
     margin: 0 auto var(--spacing-5);
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .filter-nav-wrapper {
+        justify-content: center;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
 }
 
 .header-nav.glass.filter-nav {

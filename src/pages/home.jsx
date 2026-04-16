@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { FaChevronDown } from "react-icons/fa";
 import { IMAGE_BASE_URL } from "../services/movieApi.js";
 import { useHomeData } from "../hooks/useHomeData";
 import Loading from "../components/Loading";
@@ -26,6 +27,25 @@ const GENRES = [
 export default function Home() {
     const { categorizedMovies, loading, error } = useHomeData();
     const [activeTab, setActiveTab] = useState("Now Playing");
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+
+    // Close dropdown on outside click
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+            }
+        }
+        if (isDropdownOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isDropdownOpen]);
+
+    const activeTabObj = CATEGORY_TABS.find(t => t.name === activeTab) || CATEGORY_TABS[0];
 
     if (loading) return <Loading />;
 
@@ -49,7 +69,8 @@ export default function Home() {
             </div>
 
             <div className="filter-nav-wrapper">
-                <nav className="header-nav glass filter-nav">
+                {/* Desktop View */}
+                <nav className="header-nav glass filter-nav desktop-filters">
                     {CATEGORY_TABS.map(function (tab) {
                         return (
                             <button
@@ -63,6 +84,40 @@ export default function Home() {
                         );
                     })}
                 </nav>
+
+                {/* Mobile View - Dropdown */}
+                <div className="mobile-filter-container home-mobile-filter" ref={dropdownRef}>
+                    <button 
+                        className="mobile-filter-trigger glass"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    >
+                        <div className="trigger-content">
+                            <span className="filter-icon">{activeTabObj.icon}</span>
+                            <span className="filter-label">{activeTabObj.name}</span>
+                        </div>
+                        <FaChevronDown className={`chevron ${isDropdownOpen ? 'open' : ''}`} />
+                    </button>
+                    
+                    {isDropdownOpen && (
+                        <div className="mobile-filter-menu glass">
+                            {CATEGORY_TABS.map(tab => (
+                                <button
+                                    key={tab.name}
+                                    className={`mobile-filter-item ${activeTab === tab.name ? 'active' : ''}`}
+                                    onClick={() => {
+                                        setActiveTab(tab.name);
+                                        setIsDropdownOpen(false);
+                                    }}
+                                >
+                                    <div className="item-left">
+                                        <span className="filter-icon">{tab.icon}</span>
+                                        <span className="filter-label">{tab.name}</span>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
 
             <div className="category-container category-container--no-top-padding">
