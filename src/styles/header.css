@@ -192,3 +192,29 @@
         font-weight: 600;
     }
 }
+
+.filter-nav-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 1.25rem 1rem 0;
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+/* override the bottom-nav mobile resets so it looks right in the page flow */
+.header-nav.glass.filter-nav {
+    border-radius: var(--radius-lg);
+    border-top: none;
+    justify-content: space-around;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .header-nav.glass.filter-nav {
+        width: max-content;
+        justify-content: center;
+    }
+}
+
+
+
