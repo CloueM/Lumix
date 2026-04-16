@@ -118,7 +118,6 @@
 
 .nav-btn:hover {
     color: var(--text-bright);
-    transform: translateY(-2px);
 }
 
 .nav-btn.active {
@@ -136,7 +135,7 @@
 }
 
 .nav-btn.active .nav-label-bottom {
-    font-weight: 700;
+    font-weight: var(--weight-medium);
 }
 
 .nav-btn:active {
@@ -182,7 +181,7 @@
 
     .nav-label-bottom {
         font-size: 0.95rem;
-        font-weight: 600;
+        font-weight: var(--weight-normal);
     }
 }
 
@@ -191,7 +190,7 @@
     justify-content: center;
     padding: 1.25rem 1rem 0;
     max-width: var(--max-width);
-    margin: 0 auto;
+    margin: 0 auto var(--spacing-5);
 }
 
 .header-nav.glass.filter-nav {
