@@ -208,7 +208,6 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
                                 </div>
 
                                 <div className="hero-content">
-                                    <div className="hero-badge glass">Trending Today</div>
                                     {logos[movie.id] ? (
                                         <img 
                                             src={IMAGE_BASE_URL + logos[movie.id]} 
