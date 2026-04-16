@@ -68,9 +68,18 @@ export function useFavorites() {
         return found;
     }
 
-    // add or remove movie from list
-    function toggleFavorite(movie) {
-        // ALWAY read the latest list from storage first to avoid overwriting from stale closures
+    // get the specific status of a movie
+    function getFavoriteStatus(id) {
+        for (let i = 0; i < favorites.length; i++) {
+            if (favorites[i].id === id) {
+                return favorites[i].status;
+            }
+        }
+        return null;
+    }
+
+    // update or add a movie with a specific status
+    function updateFavoriteStatus(movie, status) {
         let currentList = [];
         try {
             const stored = localStorage.getItem(STORAGE_KEY);
@@ -81,33 +90,44 @@ export function useFavorites() {
             currentList = [];
         }
 
-        // check if movie already inside
         let isInside = false;
+        const newList = [];
         for (let i = 0; i < currentList.length; i++) {
             if (currentList[i].id === movie.id) {
+                // Update the status of existing favorite
+                newList.push({ ...currentList[i], status: status });
                 isInside = true;
-                break;
-            }
-        }
-        
-        if (isInside) {
-            // remove if inside
-            const newList = [];
-            for (let i = 0; i < currentList.length; i++) {
-                if (currentList[i].id !== movie.id) {
-                    newList.push(currentList[i]);
-                }
-            }
-            updateFavorites(newList);
-        } else {
-            // add if not inside
-            const newList = [];
-            for (let i = 0; i < currentList.length; i++) {
+            } else {
                 newList.push(currentList[i]);
             }
-            newList.push(movie);
-            updateFavorites(newList);
         }
+
+        if (!isInside) {
+            // Add new favorite with status
+            newList.push({ ...movie, status: status });
+        }
+        updateFavorites(newList);
+    }
+
+    // remove a movie from favorites
+    function removeFavorite(id) {
+        let currentList = [];
+        try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                currentList = JSON.parse(stored);
+            }
+        } catch (e) {
+            currentList = [];
+        }
+
+        const newList = [];
+        for (let i = 0; i < currentList.length; i++) {
+            if (currentList[i].id !== id) {
+                newList.push(currentList[i]);
+            }
+        }
+        updateFavorites(newList);
     }
 
     // delete all from list
@@ -115,6 +135,6 @@ export function useFavorites() {
         updateFavorites([]);
     }
 
-    return { favorites, isFavorite, toggleFavorite, clearFavorites };
+    return { favorites, isFavorite, getFavoriteStatus, updateFavoriteStatus, removeFavorite, clearFavorites };
 }
 

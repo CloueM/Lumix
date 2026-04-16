@@ -5,13 +5,16 @@ import { FaRegBookmark } from "react-icons/fa6";
 import { DraggableCore } from "react-draggable";
 import { useFavorites } from "../hooks/useFavorites";
 import { useMovieLogos } from "../hooks/useMovieLogos";
+import BookmarkMenu from "./bookmark-menu";
 import "../styles/trending-today.css";
 import "../styles/buttons.css";
 
 export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
     const navigate = useNavigate();
-    const { isFavorite, toggleFavorite } = useFavorites();
+    const { isFavorite, getFavoriteStatus, updateFavoriteStatus, removeFavorite } = useFavorites();
     const logos = useMovieLogos(movies);
+    const [menuPosition, setMenuPosition] = useState(null);
+    const [activeMovie, setActiveMovie] = useState(null);
 
     // which slide is currently showing
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -112,7 +115,9 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
         if (hasDragged.current) {
             return;
         }
-        toggleFavorite(movie);
+        window.dispatchEvent(new CustomEvent('lumix-close-menus', { detail: { movieId: movie.id } }));
+        setMenuPosition({ x: e.pageX, y: e.pageY });
+        setActiveMovie(movie);
     }
 
     const translateX = "calc(" + (-currentIndex * 100) + "% + " + dragOffset + "px)";
@@ -278,6 +283,19 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
                     );
                 })}
             </div>
+            {menuPosition && activeMovie && (
+                <BookmarkMenu 
+                    movie={activeMovie}
+                    position={menuPosition}
+                    onClose={() => {
+                        setMenuPosition(null);
+                        setActiveMovie(null);
+                    }}
+                    getFavoriteStatus={getFavoriteStatus}
+                    updateFavoriteStatus={updateFavoriteStatus}
+                    removeFavorite={removeFavorite}
+                />
+            )}
         </div>
     );
 }

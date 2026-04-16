@@ -130,7 +130,6 @@
     background: var(--accent-color);
     border-color: var(--accent-color);
     color: var(--white-full);
-    transform: translateY(-2px);
 }
 
 .search-submit-btn:active {

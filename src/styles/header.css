@@ -194,7 +194,6 @@
     margin: 0 auto;
 }
 
-/* override the bottom-nav mobile resets so it looks right in the page flow */
 .header-nav.glass.filter-nav {
     border-radius: var(--radius-lg);
     border-top: none;

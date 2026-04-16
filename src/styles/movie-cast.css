@@ -85,10 +85,6 @@
     transition: var(--transition);
 }
 
-.actor-card:hover {
-    transform: translateY(-4px);
-}
-
 .actor-image-container {
     position: relative;
     width: 100%;

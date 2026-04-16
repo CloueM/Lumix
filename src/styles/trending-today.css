@@ -192,7 +192,6 @@
 
     .hero-gradient {
         height: 100vh;
-        /* cinematic vignette on desktop */
         background: radial-gradient(circle at 70% 30%, transparent 0%, var(--overlay-40) 60%, var(--overlay-95) 100%),
                     linear-gradient(to top, var(--overlay-95) 0%, var(--overlay-70) 20%, transparent 60%);
     }
