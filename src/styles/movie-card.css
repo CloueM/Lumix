@@ -21,7 +21,6 @@
     aspect-ratio: 2/3;
     border-radius: var(--radius-sm);
     object-fit: cover;
-    box-shadow: 0 var(--spacing-1) var(--spacing-1) var(--shadow-dark);
     display: block;
 }
 

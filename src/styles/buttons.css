@@ -47,10 +47,11 @@
     background: var(--accent-color);
     border-color: var(--accent-color);
     color: var(--white-full);
+    transform: translateY(-4px);
 }
 
 .view-btn:active {
-    filter: brightness(1);
+    transform: translateY(-2px) scale(0.96);
 }
 
 .bookmark-btn {
@@ -77,6 +78,7 @@
     background: var(--white-15);
     border-color: var(--white-40);
     color: var(--white-full);
+    transform: translateY(-3px);
 }
 
 .bookmark-btn:active {

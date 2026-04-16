@@ -11,7 +11,7 @@ export default function AboutLumix() {
                     <h1 className="about-title">About Lumix</h1>
                     
                     <p className="about-description">
-                        Lumix is a simple website I made for you to explore, discover, and bookmark your favorite movies and TV series. You can use this site to find trending shows, search for specific titles, and save them for later!
+                        Lumix is a dedicated platform for movie discovery. We help you explore trending titles, search for specific movies, and keep track of your favorites through local bookmarking.
                     </p>
 
                     <div className="attribution-section">
@@ -27,33 +27,33 @@ export default function AboutLumix() {
                 </div>
 
                 <div className="about-right-column">
-                    <h2 className="faq-title">Frequently Asked Questions</h2>
+                    <h2 className="faq-title">General Info</h2>
                     
                     <div className="faq-item">
-                        <h3 className="faq-question">How Your Information is Stored:</h3>
+                        <h3 className="faq-question">Your Privacy</h3>
                         <p className="faq-answer">
-                            I respect your privacy. I do not collect or store any of your personal information on my servers. When you save a movie or show to your bookmarks, it is only saved inside your own internet browser (using Local Storage). This means your bookmarks are completely private, but if you clear your browser history or use a different device, your saved shows will not be there.
+                            We do not collect or store any personal data on our servers. Your bookmarks are saved exclusively in your browser's local storage, keeping your experience private and local.
                         </p>
                     </div>
 
                     <div className="faq-item">
-                        <h3 className="faq-question">Where Do We Get the Movies?</h3>
+                        <h3 className="faq-question">Data Source</h3>
                         <p className="faq-answer">
-                            All the movie and TV show details you see on this website come from The Movie Database (TMDb) API. I use their free service to show you the posters, descriptions, and ratings.
+                            Our movie data is powered by The Movie Database (TMDb) API. We use their service to provide up-to-date posters, descriptions, and ratings.
                         </p>
                     </div>
 
                     <div className="faq-item">
                         <h3 className="faq-question">Can I watch movies on Lumix?</h3>
                         <p className="faq-answer">
-                            No, Lumix does not host any video content or provide movie streaming. It is strictly a discovery tool designed to help you find and bookmark titles. However, you can watch official trailers on the movie details page!
+                            No, Lumix is a discovery tool and does not provide streaming content. However, you can view official trailers on the movie details pages.
                         </p>
                     </div>
 
                     <div className="faq-item">
-                        <h3 className="faq-question">Do I need an account to use Lumix?</h3>
+                        <h3 className="faq-question">Do I need an account?</h3>
                         <p className="faq-answer">
-                            No account is required! Because your bookmarks are saved directly inside your browser cache, you can start using all features immediately without having to sign up.
+                            No account is required. Because bookmarks are saved to your browser, you can start using all features immediately without a sign-up.
                         </p>
                     </div>
                 </div>
