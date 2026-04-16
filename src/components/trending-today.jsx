@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaPlay, FaBookmark } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa6";
@@ -14,6 +14,27 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
     const logos = useMovieLogos(movies);
     const [menuPosition, setMenuPosition] = useState(null);
     const [activeMovie, setActiveMovie] = useState(null);
+    const trackRef = useRef(null);
+
+    // automatically go to the next slide every 5 seconds
+    useEffect(() => {
+        if (movies.length <= 1) return;
+
+        const interval = setInterval(() => {
+            const container = trackRef.current;
+            if (container) {
+                const slideWidth = container.offsetWidth;
+                const nextIndex = (Math.round(container.scrollLeft / slideWidth) + 1) % movies.length;
+                
+                container.scrollTo({
+                    left: nextIndex * slideWidth,
+                    behavior: "smooth"
+                });
+            }
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, [movies.length]);
 
     // don't show anything if there are no movies
     if (movies.length === 0) {
@@ -34,7 +55,7 @@ export default function TrendingToday({ movies, IMAGE_BASE_URL }) {
 
     return (
         <div className="trending-hero">
-            <div className="hero-track">
+            <div className="hero-track" ref={trackRef}>
                 {movies.map(function(movie, index) {
                     // get the background image for this movie
                     let backgroundImage = "";
