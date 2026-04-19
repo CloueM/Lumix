@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { FaRegBookmark, FaTrash } from "react-icons/fa";
+import { useState, useRef, useEffect } from "react";
+import { FaRegBookmark, FaTrash, FaLayerGroup, FaEye, FaCheckCircle, FaClock, FaChevronDown } from "react-icons/fa";
 import { useFavorites } from "../hooks/useFavorites";
 import MovieCard from "../components/movie-card";
 import { IMAGE_BASE_URL } from "../services/movieApi";
@@ -12,6 +12,35 @@ export default function UserBookmark() {
     const { favorites, clearFavorites } = useFavorites();
     // track if confirm box is open
     const [showConfirm, setShowConfirm] = useState(false);
+    // filter state
+    const [activeFilter, setActiveFilter] = useState("All");
+    // dropdown state for mobile
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+
+    const filters = [
+        { name: "All", icon: <FaLayerGroup /> },
+        { name: "Watching", icon: <FaEye /> },
+        { name: "Completed", icon: <FaCheckCircle /> },
+        { name: "Plan To Watch", icon: <FaClock /> }
+    ];
+
+    const activeFilterObj = filters.find(f => f.name === activeFilter) || filters[0];
+
+    // Close dropdown on outside click
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+            }
+        }
+        if (isDropdownOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isDropdownOpen]);
 
     // click clear all button
     function handleClearClick() {
@@ -29,6 +58,23 @@ export default function UserBookmark() {
         setShowConfirm(false);
     }
 
+    const handleFilterSelect = (filterName) => {
+        setActiveFilter(filterName);
+        setIsDropdownOpen(false);
+    };
+
+    // Helper to get count for a filter
+    const getCount = (filterName) => {
+        if (filterName === "All") return favorites.length;
+        return favorites.filter(m => m.status === filterName).length;
+    };
+
+    // Filter results
+    const filteredFavorites = favorites.filter(movie => {
+        if (activeFilter === "All") return true;
+        return movie.status === activeFilter;
+    });
+
     // class name for container depending on results
     let containerClass = "search-page favorites-page";
     if (favorites.length > 0) {
@@ -37,7 +83,7 @@ export default function UserBookmark() {
 
     // handle how many text is shown
     let movieText = "movies";
-    if (favorites.length === 1) {
+    if (filteredFavorites.length === 1) {
         movieText = "movie";
     }
 
@@ -51,10 +97,7 @@ export default function UserBookmark() {
                     <div className="search-results-header">
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", paddingRight: "1rem" }}>
                             <div>
-                                <h2 className="search-results-title">My Favorites</h2>
-                                <p className="search-results-count">
-                                    {favorites.length} {movieText}
-                                </p>
+                                <h2 className="search-results-title">My Watchlist</h2>
                             </div>
                             <button
                                 className="clear-all-btn"
@@ -66,17 +109,73 @@ export default function UserBookmark() {
                             </button>
                         </div>
                     </div>
+
+                    {/* Desktop filters - hidden on mobile via CSS */}
+                    <div className="favorite-filters desktop-filters">
+                        {filters.map(filter => (
+                            <button
+                                key={filter.name}
+                                className={`filter-btn ${activeFilter === filter.name ? 'active' : ''}`}
+                                onClick={() => setActiveFilter(filter.name)}
+                            >
+                                <span className="filter-icon">{filter.icon}</span>
+                                <div className="filter-label-group">
+                                    <span className="filter-label">{filter.name}</span>
+                                    <span className="filter-count">{getCount(filter.name)}</span>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Mobile filter dropdown - hidden on desktop via CSS */}
+                    <div className="mobile-filter-container" ref={dropdownRef}>
+                        <button 
+                            className="mobile-filter-trigger glass"
+                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        >
+                            <div className="trigger-content">
+                                <span className="filter-icon">{activeFilterObj.icon}</span>
+                                <span className="filter-label">{activeFilterObj.name}</span>
+                                <span className="filter-count">{getCount(activeFilter)}</span>
+                            </div>
+                            <FaChevronDown className={`chevron ${isDropdownOpen ? 'open' : ''}`} />
+                        </button>
+                        
+                        {isDropdownOpen && (
+                            <div className="mobile-filter-menu glass">
+                                {filters.map(filter => (
+                                    <button
+                                        key={filter.name}
+                                        className={`mobile-filter-item ${activeFilter === filter.name ? 'active' : ''}`}
+                                        onClick={() => handleFilterSelect(filter.name)}
+                                    >
+                                        <div className="item-left">
+                                            <span className="filter-icon">{filter.icon}</span>
+                                            <span className="filter-label">{filter.name}</span>
+                                        </div>
+                                        <span className="filter-count">{getCount(filter.name)}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                     
                     {/* regular map for movies list */}
-                    {favorites.map(function(movie) {
-                        return (
-                            <MovieCard
-                                key={movie.id}
-                                movie={movie}
-                                IMAGE_BASE_URL={IMAGE_BASE_URL}
-                            />
-                        );
-                    })}
+                    {filteredFavorites.length > 0 ? (
+                        filteredFavorites.map(function(movie) {
+                            return (
+                                <MovieCard
+                                    key={movie.id}
+                                    movie={movie}
+                                    IMAGE_BASE_URL={IMAGE_BASE_URL}
+                                />
+                            );
+                        })
+                    ) : (
+                        <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '3rem', color: 'var(--text-dim)' }}>
+                            No movies in "{activeFilter}" category.
+                        </div>
+                    )}
                 </div>
             )}
 

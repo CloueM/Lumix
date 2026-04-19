@@ -31,7 +31,7 @@ export default function Footer() {
             <h3 className="network-title">Connect With Me</h3>
             <div className="network-icons">
               <a
-                href="https://www.linkedin.com/in/cloue-macadangdang-365133240"
+                href="https://www.linkedin.com/in/cloue-macadangdang"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="network-link"
@@ -40,7 +40,7 @@ export default function Footer() {
                 <FaLinkedin />
               </a>
               <a
-                href="mailto:senp41.mac@gmail.com"
+                href="mailto:contact@clouemac.com"
                 className="network-link"
                 aria-label="Email"
               >
@@ -72,7 +72,7 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <p className="copyright-text">
-            &copy; {new Date().getFullYear()} Lumix. All rights reserved.
+            &copy; {new Date().getFullYear()} Lumix
           </p>
           <div className="legal-links">
             <Link to="/privacy-policy" className="legal-link">

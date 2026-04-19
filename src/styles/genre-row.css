@@ -71,6 +71,7 @@
     scroll-behavior: smooth;
     padding: 0 var(--spacing-2);
     scrollbar-width: none;
+    touch-action: pan-y;
 }
 
 .movie-row-scroll::-webkit-scrollbar {

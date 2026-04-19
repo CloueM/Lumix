@@ -1,15 +1,18 @@
+import { useState } from "react";
 import { FaStar, FaBookmark } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa6";
 import { useFavorites } from "../hooks/useFavorites";
 import { useMovieLogos } from "../hooks/useMovieLogos";
+import BookmarkMenu from "./bookmark-menu";
 import "../styles/view-hero.css";
 import "../styles/buttons.css";
 
 // big hero section for movie detail
 export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
     // check if movie is bookmarked
-    const { isFavorite, toggleFavorite } = useFavorites();
+    const { isFavorite, getFavoriteStatus, updateFavoriteStatus, removeFavorite } = useFavorites();
     const logos = useMovieLogos(movie);
+    const [menuPosition, setMenuPosition] = useState(null);
     
     let favorited = false;
     if (movie) {
@@ -91,8 +94,9 @@ export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
         overview = movie.overview;
     }
 
-    function handleBookmarkClick() {
-        toggleFavorite(movie);
+    function handleBookmarkClick(e) {
+        window.dispatchEvent(new CustomEvent('lumix-close-menus', { detail: { movieId: movie.id } }));
+        setMenuPosition({ x: e.pageX, y: e.pageY });
     }
 
     let bookmarkIcon;
@@ -102,14 +106,9 @@ export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
         bookmarkIcon = <FaRegBookmark className="button-icon" />;
     }
 
-    let bookmarkClass = "bookmark-btn";
+    let bookmarkClass = "bookmark-btn glass";
     if (favorited) {
-        bookmarkClass = "bookmark-btn active";
-    }
-
-    let bookmarkText = "Save";
-    if (favorited) {
-        bookmarkText = "Saved";
+        bookmarkClass = "bookmark-btn glass active";
     }
 
     return (
@@ -198,15 +197,28 @@ export default function ViewHero({ movie, trailerKey, IMAGE_BASE_URL }) {
                             <button 
                                 className={bookmarkClass}
                                 onClick={handleBookmarkClick}
-                                aria-label="Bookmark"
+                                aria-label={favorited ? `Change status (${getFavoriteStatus(movie.id)})` : "Add to Watchlist"}
                             >
-                                {bookmarkIcon}
-                                {bookmarkText}
+                                <span className="details-bookmark-icon">{bookmarkIcon}</span>
+                                <span className="details-bookmark-text">
+                                    {favorited ? getFavoriteStatus(movie.id) : "Add to Watchlist"}
+                                </span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {menuPosition && (
+                <BookmarkMenu 
+                    movie={movie}
+                    position={menuPosition}
+                    onClose={() => setMenuPosition(null)}
+                    getFavoriteStatus={getFavoriteStatus}
+                    updateFavoriteStatus={updateFavoriteStatus}
+                    removeFavorite={removeFavorite}
+                />
+            )}
         </div>
     );
 }
