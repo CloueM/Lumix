@@ -28,7 +28,7 @@ Follow these simple steps to run the website on your own computer:
    ```
 
 2. **Install the required files**:
-   Type this command and press enter:
+   Typee this command and press enter:
 
    ```bash
    npm install
