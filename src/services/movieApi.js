@@ -82,6 +82,13 @@ export async function fetchMovieCast(movieId) {
     return data;
 }
 
+// get movies by genre id
+export async function fetchMoviesByGenre(genreId) {
+    const baseUrl = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=${LANGUAGE}&with_genres=${genreId}`;
+    const result = await fetchMultiplePages(baseUrl);
+    return result;
+}
+
 // search for movie by name
 export async function searchMovies(query, page) {
     if (!page) {

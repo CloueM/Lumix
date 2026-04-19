@@ -4,7 +4,7 @@
 
 # Lumix
 
-Lumix is a simple website where you can browse your favorite movies and TV series. You can explore shows, search for specific titles, and save them to your bookmarks so you don't forget them!
+Lumix-Stream is just a version of the Lumix project I made where you can watch movies and TV series for free. It is a work in progress, so please be patient as I work on it.
 
 **Live Link**: [https://clouemac.com/lumix/](https://clouemac.com/lumix/)
 

@@ -1,7 +1,9 @@
-import { FaStar, FaBookmark, FaPlay } from "react-icons/fa";
+import { useState } from "react";
+import { FaStar, FaBookmark, FaPlay, FaEllipsisV } from "react-icons/fa";
 import { FaRegBookmark } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { useFavorites } from "../hooks/useFavorites";
+import BookmarkMenu from "./bookmark-menu";
 import "../styles/movie-card.css";
 import "../styles/buttons.css";
 
@@ -10,7 +12,8 @@ export default function MovieCard({ movie, IMAGE_BASE_URL }) {
     // for going to other page
     const navigate = useNavigate();
     // manage favorite movies
-    const { isFavorite, toggleFavorite } = useFavorites();
+    const { isFavorite, getFavoriteStatus, updateFavoriteStatus, removeFavorite } = useFavorites();
+    const [menuPosition, setMenuPosition] = useState(null);
 
     // check if movie is in favorite
     const favorited = isFavorite(movie.id);
@@ -52,7 +55,8 @@ export default function MovieCard({ movie, IMAGE_BASE_URL }) {
     // handle bookmark click
     function handleBookmark(e) {
         e.stopPropagation();
-        toggleFavorite(movie);
+        window.dispatchEvent(new CustomEvent('lumix-close-menus', { detail: { movieId: movie.id } }));
+        setMenuPosition({ x: e.pageX, y: e.pageY });
     }
 
     // go to movie page when click view
@@ -119,6 +123,17 @@ export default function MovieCard({ movie, IMAGE_BASE_URL }) {
                     </div>
                 </div>
             </div>
+
+            {menuPosition && (
+                <BookmarkMenu 
+                    movie={movie}
+                    position={menuPosition}
+                    onClose={() => setMenuPosition(null)}
+                    getFavoriteStatus={getFavoriteStatus}
+                    updateFavoriteStatus={updateFavoriteStatus}
+                    removeFavorite={removeFavorite}
+                />
+            )}
         </div>
     );
 }

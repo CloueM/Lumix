@@ -1,20 +1,54 @@
+import { useState, useRef, useEffect } from "react";
+import { FaChevronDown } from "react-icons/fa";
 import { IMAGE_BASE_URL } from "../services/movieApi.js";
 import { useHomeData } from "../hooks/useHomeData";
 import Loading from "../components/Loading";
 import GenreRow from "../components/genre-row";
 import TrendingToday from "../components/trending-today";
+import { MdPlayCircle, MdStar, MdWhatshot, MdCalendarMonth } from "react-icons/md";
 
-// main home page of the website
+const CATEGORY_TABS = [
+    { name: "Now Playing", icon: <MdPlayCircle /> },
+    { name: "Top Rated",   icon: <MdStar /> },
+    { name: "Popular",     icon: <MdWhatshot /> },
+    { name: "Upcoming",    icon: <MdCalendarMonth /> },
+];
+
+const GENRES = [
+    { name: "Action",    id: 28 },
+    { name: "Comedy",    id: 35 },
+    { name: "Horror",    id: 27 },
+    { name: "Romance",   id: 10749 },
+    { name: "Sci-Fi",    id: 878 },
+    { name: "Drama",     id: 18 },
+    { name: "Animation", id: 16 },
+];
+
 export default function Home() {
-    // get movies grouped by category from custom hook
     const { categorizedMovies, loading, error } = useHomeData();
+    const [activeTab, setActiveTab] = useState("Now Playing");
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
 
-    // show loading spinner while fetching
-    if (loading) {
-        return <Loading />;
-    }
+    // Close dropdown on outside click
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+            }
+        }
+        if (isDropdownOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isDropdownOpen]);
 
-    // show error message if fetch fails
+    const activeTabObj = CATEGORY_TABS.find(t => t.name === activeTab) || CATEGORY_TABS[0];
+
+    if (loading) return <Loading />;
+
     if (error) {
         return (
             <div style={{ padding: "20px", color: "red" }}>
@@ -23,46 +57,82 @@ export default function Home() {
         );
     }
 
-    // separate trending movies for the big hero section at top
-    let trendingMovies = [];
-    if (categorizedMovies["Trending Today"]) {
-        trendingMovies = categorizedMovies["Trending Today"];
-    }
-    
-    // separate other categories for rows below
-    const otherCategories = [];
-    const categoryNames = Object.keys(categorizedMovies);
-    
-    for (let i = 0; i < categoryNames.length; i++) {
-        const name = categoryNames[i];
-        if (name !== "Trending Today") {
-            otherCategories.push({
-                name: name,
-                movies: categorizedMovies[name]
-            });
-        }
-    }
+    const trendingMovies = categorizedMovies["Trending Today"] || [];
+    const activeMovies = categorizedMovies[activeTab] || [];
 
     return (
         <div className="home-page">
             <div>
-                {/* show big hero if there are trending movies */}
                 {trendingMovies.length > 0 && (
-                    <TrendingToday
-                        movies={trendingMovies}
-                        IMAGE_BASE_URL={IMAGE_BASE_URL}
-                    />
+                    <TrendingToday movies={trendingMovies} IMAGE_BASE_URL={IMAGE_BASE_URL} />
                 )}
             </div>
-            
+
+            <div className="filter-nav-wrapper">
+                {/* Desktop View */}
+                <nav className="header-nav glass filter-nav desktop-filters">
+                    {CATEGORY_TABS.map(function (tab) {
+                        return (
+                            <button
+                                key={tab.name}
+                                className={activeTab === tab.name ? "nav-btn active" : "nav-btn"}
+                                onClick={function () { setActiveTab(tab.name); }}
+                            >
+                                {tab.icon}
+                                <span className="nav-label-bottom">{tab.name}</span>
+                            </button>
+                        );
+                    })}
+                </nav>
+
+                {/* Mobile View - Dropdown */}
+                <div className="mobile-filter-container home-mobile-filter" ref={dropdownRef}>
+                    <button 
+                        className="mobile-filter-trigger glass"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    >
+                        <div className="trigger-content">
+                            <span className="filter-icon">{activeTabObj.icon}</span>
+                            <span className="filter-label">{activeTabObj.name}</span>
+                        </div>
+                        <FaChevronDown className={`chevron ${isDropdownOpen ? 'open' : ''}`} />
+                    </button>
+                    
+                    {isDropdownOpen && (
+                        <div className="mobile-filter-menu glass">
+                            {CATEGORY_TABS.map(tab => (
+                                <button
+                                    key={tab.name}
+                                    className={`mobile-filter-item ${activeTab === tab.name ? 'active' : ''}`}
+                                    onClick={() => {
+                                        setActiveTab(tab.name);
+                                        setIsDropdownOpen(false);
+                                    }}
+                                >
+                                    <div className="item-left">
+                                        <span className="filter-icon">{tab.icon}</span>
+                                        <span className="filter-label">{tab.name}</span>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
+
             <div className="category-container category-container--no-top-padding">
-                {/* loop through normal categories and make a row for each */}
-                {otherCategories.map(function(category) {
+                {GENRES.map(function (genre) {
+                    const movies = activeMovies.filter(function (movie) {
+                        return movie.genre_ids && movie.genre_ids.includes(genre.id);
+                    });
+
+                    if (movies.length === 0) return null;
+
                     return (
                         <GenreRow
-                            key={category.name}
-                            genreName={category.name}
-                            movies={category.movies}
+                            key={genre.id}
+                            genreName={genre.name}
+                            movies={movies}
                             IMAGE_BASE_URL={IMAGE_BASE_URL}
                         />
                     );
@@ -71,4 +141,3 @@ export default function Home() {
         </div>
     );
 }
-

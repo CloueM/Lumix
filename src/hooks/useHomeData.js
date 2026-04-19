@@ -14,7 +14,7 @@ export function useHomeData() {
     const [error, setError] = useState(null);
 
     // load data when page first load
-    useEffect(function() {
+    useEffect(function () {
         async function loadData() {
             try {
                 setLoading(true);
@@ -26,15 +26,14 @@ export function useHomeData() {
                 const topRatedData = await fetchTopRatedMovies();
                 const upcomingData = await fetchUpcomingMovies();
 
-                // save only top 10 from each category
                 const newCategories = {
                     "Trending Today": trendingData.results.slice(0, 10),
-                    "Now Playing": nowPlayingData.results.slice(0, 10),
-                    "Popular": popularData.results.slice(0, 10),
-                    "Top Rated": topRatedData.results.slice(0, 10),
-                    "Upcoming": upcomingData.results.slice(0, 10)
+                    "Now Playing": nowPlayingData.results.slice(0, 100),
+                    "Popular": popularData.results.slice(0, 100),
+                    "Top Rated": topRatedData.results.slice(0, 100),
+                    "Upcoming": upcomingData.results.slice(0, 100)
                 };
-                
+
                 setCategorizedMovies(newCategories);
             } catch (err) {
                 // save error if fail

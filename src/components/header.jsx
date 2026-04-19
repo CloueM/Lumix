@@ -1,54 +1,14 @@
 import "../styles/header.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { AiOutlineHome, AiOutlineStar } from "react-icons/ai";
-import { MdMovie, MdBookmark } from "react-icons/md";
-import { BiCalendar, BiSearch, BiInfoCircle } from "react-icons/bi";
-import { RiMovie2Line } from "react-icons/ri";
+import { AiOutlineHome } from "react-icons/ai";
+import { MdBookmark } from "react-icons/md";
+import { BiSearch, BiInfoCircle } from "react-icons/bi";
 import logo from "../assets/lumix-logo.svg";
 
 // top nav bar
 export default function Navbar() {
     const navigate = useNavigate();
-    // see what page we are in (using useLocation hook)
     const location = useLocation();
-    
-    // hide or show category menu
-    const [showCategoryNav, setShowCategoryNav] = useState(true);
-    // remember scroll position
-    const [lastScrollY, setLastScrollY] = useState(0);
-
-    // hide category bar when scroll down. show when scroll up
-    useEffect(() => {
-        function handleScroll() {
-            const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY && currentScrollY > 50) {
-                // scroll down past 50px hides nav
-                setShowCategoryNav(false);
-            } else {
-                // scroll up then show it
-                setShowCategoryNav(true);
-            }
-            // Update the last scroll position for the next time user scroll
-            setLastScrollY(currentScrollY);
-        }
-
-        // listen scroll event
-        window.addEventListener("scroll", handleScroll);
-        // clean up event
-        return function() {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [lastScrollY]);
-
-    // class name for category button
-    function getCategoryClass(path) {
-        if (location.pathname === path) {
-            return "category-btn active";
-        } else {
-            return "category-btn";
-        }
-    }
 
     // class name for main nav button
     function getNavClass(path) {
@@ -58,13 +18,6 @@ export default function Navbar() {
             return "nav-btn";
         }
     }
-
-    // build class for category bar
-    let categoryNavClass = "category-nav";
-    if (!showCategoryNav) {
-        categoryNavClass = "category-nav hidden";
-    }
-
 
     return (
         <>
@@ -76,45 +29,16 @@ export default function Navbar() {
                         </a>
                     </div>
 
-                    {/* The secondary navigation bar for selecting movie categories */}
-                    <nav className={categoryNavClass}>
-                        <button
-                            className={getCategoryClass("/now-playing")}
-                            onClick={function() { navigate("/now-playing"); }}
-                            title="Now Playing"
-                        >
-                            <RiMovie2Line />
-                            <span className="nav-label-right">Now Playing</span>
-                        </button>
-                        <button
-                            className={getCategoryClass("/top-rated")}
-                            onClick={function() { navigate("/top-rated"); }}
-                            title="Top Rated"
-                        >
-                            <AiOutlineStar />
-                            <span className="nav-label-right">Top Rated</span>
-                        </button>
-                        <button
-                            className={getCategoryClass("/popular")}
-                            onClick={function() { navigate("/popular"); }}
-                            title="Popular"
-                        >
-                            <MdMovie />
-                            <span className="nav-label-right">Popular</span>
-                        </button>
-                        <button
-                            className={getCategoryClass("/upcoming")}
-                            onClick={function() { navigate("/upcoming"); }}
-                            title="Upcoming"
-                        >
-                            <BiCalendar />
-                            <span className="nav-label-right">Upcoming</span>
-                        </button>
-                    </nav>
+
 
                     <div className="header-right">
-                        <button className="about-btn" onClick={function() { navigate("/about"); }} title="About">
+                        <button 
+                            className={"nav-btn about-nav-btn " + (location.pathname === "/about" ? "active" : "")} 
+                            onClick={function() { navigate("/about"); }} 
+                            title="About"
+                        >
                             <BiInfoCircle />
+                            <span className="nav-label-bottom">About</span>
                         </button>
                     </div>
                 </div>
