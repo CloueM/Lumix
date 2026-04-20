@@ -40,14 +40,14 @@ export default function Footer() {
                 <FaLinkedin />
               </a>
               <a
-                href="mailto:contact@clouemac.com"
+                href="mailto:hello@kurowii.com"
                 className="network-link"
                 aria-label="Email"
               >
                 <MdEmail />
               </a>
               <a
-                href="https://clouemac.com/"
+                href="https://kurowii.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="network-link"
