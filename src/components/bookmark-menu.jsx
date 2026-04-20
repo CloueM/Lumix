@@ -21,12 +21,9 @@ export default function BookmarkMenu({ movie, position, onClose, getFavoriteStat
     useEffect(() => {
         function handleClickOutside(e) {
             if (menuRef.current && !menuRef.current.contains(e.target)) {
-                // Ensure we don't close immediately from the click that opened it
-                // handleBookmark already stops propagation, but being safe
                 onClose();
             }
         }
-        // Small timeout so the click that opens it isn't caught immediately
         const timeout = setTimeout(() => {
             document.addEventListener("click", handleClickOutside);
         }, 10);
@@ -75,7 +72,7 @@ export default function BookmarkMenu({ movie, position, onClose, getFavoriteStat
         top = position.y - 240;
     }
     if (window.innerWidth - viewportLeft < 200) {
-        left = position.x - 150; // Just shift it left a bit more
+        left = position.x - 150;
     }
 
     const filters = [
@@ -86,8 +83,8 @@ export default function BookmarkMenu({ movie, position, onClose, getFavoriteStat
 
     return createPortal(
         <>
-            <div 
-                className="bookmark-menu glass" 
+            <div
+                className="bookmark-menu glass"
                 ref={menuRef}
                 style={{ top: top, left: left }}
                 onClick={(e) => e.stopPropagation()}
@@ -95,7 +92,7 @@ export default function BookmarkMenu({ movie, position, onClose, getFavoriteStat
                 <div className="bookmark-menu-header">Save to list</div>
                 <div className="bookmark-menu-list">
                     {filters.map(filter => (
-                        <button 
+                        <button
                             key={filter.name}
                             className={`bookmark-menu-item ${currentStatus === filter.name ? 'active' : ''}`}
                             onClick={(e) => handleStatusClick(e, filter.name)}

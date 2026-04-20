@@ -1,40 +1,49 @@
-# Force HTTPS, Security Blocks, and SPA Routing
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-
-  # 1. Force HTTPS
-  # Works for both direct connections and proxy/load-balancers
-  RewriteCond %{HTTPS} off [OR]
-  RewriteCond %{HTTP:X-Forwarded-Proto} !https
-  RewriteCond %{HTTP_HOST} ^(www\.)?kurowii\.com$ [NC]
-  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-  # 2. Image Hotlinking Protection
-  # Protects images from being used on other domains
-  # Allow direct access (empty referrer) and your own domain
-  RewriteCond %{HTTP_REFERER} !^$
-  RewriteCond %{HTTP_REFERER} !^https?://(www\.)?kurowii\.com/.*$ [NC]
-  RewriteRule \.(gif|jpg|jpeg|bmp|zip|rar|mp3|flv|swf|xml|php|png|css|pdf)$ - [F]
-
-  # 3. SPA Routing (Lumix Subdirectory)
-  RewriteBase /lumix/
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} !-l
-  RewriteRule . /lumix/index.html
-</IfModule>
-
-# Block directory browsing
+# Disable directory browsing
 Options -Indexes
 
-# Block xmlrpc.php (Advanced blocking for both Apache 2.2 and 2.4)
-<Files "xmlrpc.php">
-  <IfModule mod_authz_core.c>
-    Require all denied
-  </IfModule>
-  <IfModule !mod_authz_core.c>
-    Order allow,deny
-    Deny from all
-  </IfModule>
+# Prevent viewing of .htaccess file
+<Files .htaccess>
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </Files>
+
+# Prevent viewing of sensitive files
+<FilesMatch "^(package|package-lock|vite\.config|ai\.txt|README\.md)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block access to hidden files and folders (e.g., .git)
+    RewriteRule "(^|/)\." - [F]
+
+    # Restrict HTTP methods to GET, POST, and HEAD
+    # Only allows standard web traffic methods
+    RewriteCond %{REQUEST_METHOD} !^(GET|POST|HEAD) [NC]
+    RewriteRule .* - [F]
+
+    # Force HTTPS
+    # Redirects all traffic to a secure connection
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+    # SPA Routing
+    # Configured for the /lumix/ subdirectory
+    RewriteBase /lumix/
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /lumix/index.html [L]
+</IfModule>
